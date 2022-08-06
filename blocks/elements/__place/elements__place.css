@@ -1,7 +1,7 @@
-.element__place {
+.elements__place {
   max-width: 200px;
   font-size: 24px;
-  line-height: auto;
+  line-height: 1;
   font-weight: 900;
   color: #000;
   margin: 0;
@@ -9,5 +9,4 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  display: inline-block;
 }

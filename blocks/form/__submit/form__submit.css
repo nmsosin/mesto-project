@@ -1,8 +1,8 @@
-.form__submit[type="submit"] {
+.form__submit {
   width: 238px;
   min-height: 46px;
   padding: 0;
-  margin: 0;
+  margin: 15px 0 0;
   background-color: rgba(0, 0, 0, 1);
   border: none;
   border-radius: 2px;
@@ -11,6 +11,7 @@
   line-height: 1;
   color: #fff;
   transition: background-color .3s ease-in 0s;
+  cursor: pointer;
 }
 
 .form__submit:hover {
@@ -18,7 +19,9 @@
 }
 
 @media all and (min-width: 880px) {
-  .form__submit[type="submit"]{
+  .form__submit {
+    font-size: 18px;
     width: 358px;
+    margin: 18px 0 0;
   }
 }

@@ -1,4 +1,5 @@
 .profile {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +10,6 @@
   .profile {
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     padding: 42px 0 51px;
   }
 }

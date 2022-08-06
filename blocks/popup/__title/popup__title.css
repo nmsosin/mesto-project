@@ -5,3 +5,9 @@
   color: #000;
   margin: 0;
 }
+
+@media all and (min-width: 880px) {
+  .popup__title {
+    font-size: 24px;
+  }
+}

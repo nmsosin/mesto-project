@@ -1,4 +1,5 @@
-.form__user-status {
+.form__input {
+  width: 100%;
   padding: 0 0 13px;
   margin: 0;
   border: none;

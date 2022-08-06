@@ -1,15 +1,16 @@
 .content-wrapper {
   margin: 0 auto;
-}
-
-@media all and (max-width: 880px) {
-  .content-wrapper {
-    max-width: 584px;
-  }
+  max-width: 880px;
 }
 
 @media all and (max-width: 580px) {
   .content-wrapper {
     max-width: 282px;
+  }
+}
+
+@media all and (max-width: 880px) {
+  .content-wrapper {
+    max-width: 584px;
   }
 }

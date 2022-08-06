@@ -1,9 +1,13 @@
 .profile__status {
+  max-width: 70%;
   font-size: 14px;
   line-height: 1;
   font-weight: normal;
   margin: 0;
   padding-bottom: 36px;
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+  overflow: hidden;
 }
 
 @media all and (min-width: 1280px) {
