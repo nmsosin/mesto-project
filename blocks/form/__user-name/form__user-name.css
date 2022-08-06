@@ -1,0 +1,9 @@
+.form__user-name {
+  padding: 0 0 13px;
+  margin: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1;
+}

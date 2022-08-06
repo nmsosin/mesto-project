@@ -1,0 +1,24 @@
+.form__submit[type="submit"] {
+  width: 238px;
+  min-height: 46px;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 1);
+  border: none;
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1;
+  color: #fff;
+  transition: background-color .3s ease-in 0s;
+}
+
+.form__submit:hover {
+  background-color: rgba(0, 0, 0, .8);
+}
+
+@media all and (min-width: 880px) {
+  .form__submit[type="submit"]{
+    width: 358px;
+  }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="content">
+  <div class="content-wrapper">
+    <header class="header">
+      <img src="./images/logo.svg" alt="Logo" class="header__logo">
+    </header>
+    
+    <main class="main">
+      <section class="profile">
+        <div class="profile__user">
+          <img src="./images/avatar.jpg" alt="Cousteau" class="profile__avatar">
+          <div class="profile__info">
+            <div class="profile__settings">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button"></button>
+            </div>
+            <p class="profile__status">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+
+      <section class="elements">
+        <ul class="elements__list">
+          <li class="elements__item">
+            <div class="element">
+              <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="element__image">
+              <div class="element__place-info">
+                <p class="element__place">Карачаевск</p>
+                <button class="element__like-button"></button>
+              </div>
+            </div>
+          </li>
+
+          <li class="elements__item">
+            <div class="element">
+              <img src="./images/Elbrus.jpg" alt="Эльбрус" class="element__image">
+              <div class="element__place-info">
+                <p class="element__place">Гора Эльбрус</p>
+                <button class="element__like-button element__like-button_active"></button>
+              </div>
+            </div>
+          </li>
+
+          <li class="elements__item">
+            <div class="element">
+              <img src="./images/Dombai.jpg" alt="Домбай" class="element__image">
+              <div class="element__place-info">
+                <p class="element__place">Домбай</p>
+                <button class="element__like-button"></button>
+              </div>
+            </div>
+          </li>
+          <li class="elements__item">
+            <div class="element">
+              <img src="./images/Elbrus.jpg" alt="Эльбрус" class="element__image">
+              <div class="element__place-info">
+                <p class="element__place">Гора Эльбрус</p>
+                <button class="element__like-button"></button>
+            </div>
+            </div>
+          </li>
+
+          <li class="elements__item">
+            <div class="element">
+              <img src="./images/Dombai.jpg" alt="Домбай" class="element__image">
+              <div class="element__place-info">
+                <p class="element__place">Домбай</p>
+                <button class="element__like-button"></button>
+             </div>
+            </div>
+          </li>
+
+          <li class="elements__item">
+            <div class="element">
+              <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="element__image">
+              <div class="element__place-info">
+                <p class="element__place">Карачаево-Черкессия</p>
+                <button class="element__like-button"></button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">
+        © 2020 Mesto Russia
+      </p>
+    </footer>
+  </div>
+
+  <div class="popup">
+    <div class="popup__wrapper">
+      <button class="popup__close-icon"></button>
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="form">
+          <fieldset class="form__user-info">
+            <input type="text" name="name" value="Жак-Ив Кусто" class="form__user-name" required>
+            <input type="text" name="status" value="Исследователь океана" class="form__user-status" required>
+          </fieldset>
+          <input type="submit" value="Сохранить" class="form__submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

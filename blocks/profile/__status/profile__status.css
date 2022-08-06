@@ -1,0 +1,14 @@
+.profile__status {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: normal;
+  margin: 0;
+  padding-bottom: 36px;
+}
+
+@media all and (min-width: 1280px) {
+  .profile__status {
+    font-size: 18px;
+    padding-bottom: 0px;
+  }
+}
