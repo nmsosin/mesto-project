@@ -35,4 +35,4 @@
 
 **GitHub Pages**
 
-[Ссылка на проект в GitHub Pages](#)
+[Ссылка на проект в GitHub Pages](https://nmsosin.github.io/mesto-project/)
