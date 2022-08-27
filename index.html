@@ -30,52 +30,15 @@
 
       <section class="elements">
         <ul class="elements__list">
-          <li class="elements__item">
-              <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="elements__image">
-              <div class="elements__place-info">
-                <h2 class="elements__place">Карачаевск</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-          </li>
-
-          <li class="elements__item">
-              <img src="./images/Elbrus.jpg" alt="Эльбрус" class="elements__image">
-              <div class="elements__place-info">
-                <h2 class="elements__place">Гора Эльбрус</h2>
-                <button type="button" class="elements__like-button elements__like-button_active"></button>
-              </div>
-          </li>
-
-          <li class="elements__item">
-              <img src="./images/Dombai.jpg" alt="Домбай" class="elements__image">
-              <div class="elements__place-info">
-                <h2 class="elements__place">Домбай</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-          </li>
-          <li class="elements__item">
-              <img src="./images/Elbrus.jpg" alt="Эльбрус" class="elements__image">
-              <div class="elements__place-info">
-                <h2 class="elements__place">Гора Эльбрус</h2>
-                <button type="button" class="elements__like-button"></button>
-            </div>
-          </li>
-
-          <li class="elements__item">
-              <img src="./images/Dombai.jpg" alt="Домбай" class="elements__image">
-              <div class="elements__place-info">
-                <h2 class="elements__place">Домбай</h2>
-                <button type="button" class="elements__like-button"></button>
-             </div>
-          </li>
-
-          <li class="elements__item">
+          <template id="placeCard">
+            <li class="elements__item">
               <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="elements__image">
               <div class="elements__place-info">
                 <h2 class="elements__place">Карачаево-Черкессия</h2>
                 <button type="button" class="elements__like-button"></button>
               </div>
           </li>
+          </template>
         </ul>
 
         <template id="placeCard">

@@ -1,7 +1,6 @@
 // Pop-up open
 const popup = document.querySelector('#popup_edit');
       profileEditButton = document.querySelector('.profile__edit-button');
-      popupCloseIcon = document.querySelector('.popup__close-icon');
       addButton = document.querySelector('.profile__add-button');
 
 profileEditButton.addEventListener('click', function () {
@@ -9,6 +8,7 @@ profileEditButton.addEventListener('click', function () {
 });
 
 // Popup close
+const popupCloseIcon = document.querySelector('.popup__close-icon');
 popupCloseIcon.addEventListener('click', function () {
   popup.classList.remove('popup_opened');
 });
@@ -71,6 +71,11 @@ for (i = 0; i < initialCards.length; i++) {
   placeCardElement.querySelector('.elements__image').src = initialCards[i].link;
   placeCardElement.querySelector('.elements__image').alt = initialCards[i].name;
   placeCardElement.querySelector('.elements__place').textContent = initialCards[i].name;
+
+  placeCardElement.querySelector('.elements__like-button').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('elements__like-button_active');
+  });
+
   placeCardsList.append(placeCardElement);
 }
 
@@ -101,6 +106,11 @@ function formPlaceSubmitHandler (evt) {
   placeName.textContent = popupPlaceNameInput.value;
   placeImage.src = popupImageLinkInput.value;
   placeImage.alt = popupPlaceNameInput.value;
+
+  placeCardElement.querySelector('.elements__like-button').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('elements__like-button_active');
+  });
+
   placeCardsList.prepend(placeCardElement);
 
   popupAdd.classList.remove('popup_opened');
@@ -109,7 +119,12 @@ function formPlaceSubmitHandler (evt) {
 formPlaceElement.addEventListener('submit', formPlaceSubmitHandler);
 
 // Like button
-
+// const likeButton = document.querySelector('.elements__like-button');
+// likeButton.addEventListener('click', function (evt) {
+//   const eventTarget = evt.target;
+//   console.log(eventTarget);
+//   eventTarget.classList.toggle('elements__like-button_active');
+//   });
 
 // Delete button
 
