@@ -28,6 +28,7 @@
 @import url(../blocks/elements/__place/elements__place.css);
 @import url(../blocks/elements/__like-button/elements__like-button.css);
 @import url(../blocks/elements/__like-button/_active/elements__like-button_active.css);
+@import url(../blocks/elements/__delete-button/elements__delete-button.css);
 
 /* section footer styles import */
 @import url(../blocks/footer/footer.css);
