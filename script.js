@@ -1,19 +1,19 @@
 // Pop-up open
-const popup = document.querySelector('.popup');
+const popup = document.querySelector('#popup_edit');
       profileEditButton = document.querySelector('.profile__edit-button');
       popupCloseIcon = document.querySelector('.popup__close-icon');
-
+      addButton = document.querySelector('.profile__add-button');
 
 profileEditButton.addEventListener('click', function () {
   popup.classList.add('popup_opened');
 });
 
-// Pop-up close
+// Popup close
 popupCloseIcon.addEventListener('click', function () {
   popup.classList.remove('popup_opened');
 });
 
-// Popup default values
+// Popup edit default values
 let profileName = document.querySelector('.profile__name');
     profileStatus = document.querySelector('.profile__status');
     popupNameInput = document.querySelector('#name_input');
@@ -22,8 +22,8 @@ let profileName = document.querySelector('.profile__name');
 popupNameInput.value = profileName.textContent;
 popupStatusInput.value = profileStatus.textContent;
 
-// Popup submit
-const formElement = document.querySelector('.form');
+// Popup edit submit
+const formUserElement = document.querySelector('.form_user');
 
 function formSubmitHandler (evt) {
   evt.preventDefault(); 
@@ -32,7 +32,7 @@ function formSubmitHandler (evt) {
   popup.classList.remove('popup_opened');
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
+formUserElement.addEventListener('submit', formSubmitHandler);
 
 // Default six cards
 
@@ -74,9 +74,42 @@ for (i = 0; i < initialCards.length; i++) {
   placeCardsList.append(placeCardElement);
 }
 
-// Add new card
+// Add new card popup
+const popupAdd = document.querySelector('#popup_add');
+      popupAddCloseIcon = document.querySelector('.popup__close-icon_add');
+
+addButton.addEventListener('click', function () {
+  popupAdd.classList.add('popup_opened');
+});
+
+popupAddCloseIcon.addEventListener('click', function () {
+  popupAdd.classList.remove('popup_opened');
+});
+
+// Add new card submit
+const formPlaceElement = document.querySelector('.form_place');
+
+function formPlaceSubmitHandler (evt) {
+  evt.preventDefault(); 
+
+  let placeCardElement = placeCardTemplate.querySelector('.elements__item').cloneNode(true);
+      placeName = placeCardElement.querySelector('.elements__place');
+      placeImage = placeCardElement.querySelector('.elements__image');
+      popupPlaceNameInput = document.querySelector('#place_name_input');
+      popupImageLinkInput = document.querySelector('#image_link');
+
+  placeName.textContent = popupPlaceNameInput.value;
+  placeImage.src = popupImageLinkInput.value;
+  placeImage.alt = popupPlaceNameInput.value;
+  placeCardsList.prepend(placeCardElement);
+
+  popupAdd.classList.remove('popup_opened');
+}
+
+formPlaceElement.addEventListener('submit', formPlaceSubmitHandler);
 
 // Like button
+
 
 // Delete button
 
