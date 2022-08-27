@@ -33,4 +33,55 @@ function formSubmitHandler (evt) {
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
+
+// Default six cards
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+  ];
+
+const placeCardsList = document.querySelector('.elements__list');
+const placeCardTemplate = document.querySelector('#placeCard').content;
+
+for (i = 0; i < initialCards.length; i++) {
+  let placeCardElement = placeCardTemplate.querySelector('.elements__item').cloneNode(true);
+  placeCardElement.querySelector('.elements__image').src = initialCards[i].link;
+  placeCardElement.querySelector('.elements__image').alt = initialCards[i].name;
+  placeCardElement.querySelector('.elements__place').textContent = initialCards[i].name;
+  placeCardsList.append(placeCardElement);
+}
+
+// Add new card
+
+// Like button
+
+// Delete button
+
+// Image popup
+
+// Smooth animation
+
           
