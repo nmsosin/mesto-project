@@ -126,13 +126,31 @@ function likeOnButton (currentCard) {
 // Delete button
 function deleteOnButton (currentCard) {
     currentCard.querySelector('.elements__delete-button').addEventListener('click', function (evt) {
-    console.log(evt.target);
     let listItem = evt.target.closest('.elements__item');
     listItem.remove();
   });
 }
 
 // Image popup
+const imageOnClick = document.querySelectorAll('.elements__image');
+      popupFigure = document.querySelector('#popup_figure');
+      popupImage = popupFigure.querySelector('.popup__image');
+      popupCaption = popupFigure.querySelector('.popup__caption');
+      popupFigureCloseIcon = document.querySelector('.popup__close-icon_figure');
+
+popupFigureCloseIcon.addEventListener('click', function () {
+  popupFigure.classList.remove('popup_opened');
+});
+
+
+for (i = 0; i < imageOnClick.length; i++) {
+  imageOnClick[i].addEventListener('click', function Expand (evt) {
+  popupImage.src = evt.target.src;
+  popupCaption.textContent = evt.target.alt;
+  popupFigure.classList.add('popup_opened');
+});
+}
+
 
 // Smooth animation
 
