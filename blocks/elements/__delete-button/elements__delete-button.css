@@ -15,6 +15,6 @@
   right: 20px;
 }
 
-.elements__like-button:hover {
-  opacity: .5;
+.elements__delete-button:hover {
+  opacity: .6;
 }
