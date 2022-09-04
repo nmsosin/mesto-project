@@ -136,3 +136,4 @@ function closePopup (currentPopup) {
 }
 
 closeIconsArr.forEach(closePopup);
+
