@@ -23,7 +23,7 @@ const popupImage = popupFigure.querySelector('.popup__image');
 const popupCaption = popupFigure.querySelector('.popup__caption');
 
 const $openPopupArr = Array.from(document.querySelectorAll('.popup-open'));
-const closeIconsArr = Array.from(document.querySelectorAll('.close-popup'));
+const closeIconsArr = Array.from(document.querySelectorAll('.popup__close-icon'));
 
 // Popup edit submit 
 
@@ -32,15 +32,16 @@ function formSubmitHandler (evt) {
   evt.preventDefault(); 
   profileName.textContent = popupNameInput.value;
   profileStatus.textContent = popupStatusInput.value;
+  closeModal (popupEdit);
 }
 
 formUserElement.addEventListener('submit', formSubmitHandler);
 
 // Creating cards function
-const placeCardElement = placeCardTemplate.querySelector('.elements__item').cloneNode(true);
+
 
 function addCard (cardName, imgLink) {
-  
+  const placeCardElement = placeCardTemplate.querySelector('.elements__item').cloneNode(true);
   const placeName = placeCardElement.querySelector('.elements__place');
   const placeImage = placeCardElement.querySelector('.elements__image');
 
@@ -66,11 +67,12 @@ function addCard (cardName, imgLink) {
 // default cards creation
 
 for (i = 0; i < initialCards.length; i++) {
-  addCard(initialCards[i].name, initialCards[i].link);
-  console.log(i);
-  console.log(initialCards[i].name, initialCards[i].link);
-  console.log(placeCardElement);
-  placeCardsList.prepend(placeCardElement);
+  appearCard(initialCards[i].name, initialCards[i].link);
+}
+
+function appearCard (cardName, imageLink) {
+  const cardElement = addCard(cardName, imageLink);
+  placeCardsList.prepend(cardElement);
 }
 
 // Add new card submit creation
@@ -80,12 +82,11 @@ function formPlaceSubmitHandler (evt) {
   const popupPlaceNameInput = document.querySelector('#place_name_input');
   const popupImageLinkInput = document.querySelector('#image_link');
 
-  addCard(popupPlaceNameInput.value, popupImageLinkInput.value);
+  appearCard (popupPlaceNameInput.value, popupImageLinkInput.value);
 
-  console.log(placeCardElement);
-  placeCardsList.prepend(placeCardElement);
 
   formPlaceElement.reset();
+  closeModal (popupAdd);
 
 }
 
@@ -131,9 +132,13 @@ $openPopupArr.forEach($openBtn => {
 // popup close function
 function closePopup (currentPopup) {
   currentPopup.addEventListener('click', function (evt) {
-    evt.target.closest('.popup').classList.remove('popup_opened');
+    const $targetCross = evt.target.closest('.popup');
+    closeModal($targetCross);
   });
 }
 
 closeIconsArr.forEach(closePopup);
 
+function closeModal (targetModal) {
+  targetModal.classList.remove('popup_opened');
+}
