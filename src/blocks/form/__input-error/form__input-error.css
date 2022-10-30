@@ -1,0 +1,8 @@
+.form__input-error {
+  color: rgba(255, 0, 0, 1);
+  padding-top: 5px;
+  font-size: 12px;
+  line-height: 1;
+  display: none;
+  width: 100%;
+}
