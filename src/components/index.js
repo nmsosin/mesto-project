@@ -3,16 +3,13 @@ import '../pages/index.css';
 
 //Module exports
 import { initialCards } from './cards';
-import { enableValidaton } from "./validate";
-
-import {addCard} from "./utils";
+import { enableValidation } from "./validate";
 import {appearCard} from "./utils";
 import {closeModal} from "./modal";
 import {openModal} from "./modal";
 import {closePopup} from "./modal";
-import {keyboardClosePopup} from "./modal";
-import {likeOnButton} from './utils';
-import {deleteOnButton} from './utils';
+import {toggleButtonState} from "./validate";
+
 
 // Variable declarations
 const popupEdit = document.querySelector('#popup_edit');
@@ -23,19 +20,33 @@ const popupStatusInput = document.querySelector('#status_input');
 const formUserElement = document.querySelector('.form__type_user');
 const popupAdd = document.querySelector('#popup_add');
 const formPlaceElement = document.querySelector('.form__type_place');
-const $openPopupArr = Array.from(document.querySelectorAll('.popup-open'));
 const modals = Array.from(document.querySelectorAll('.popup'));
+const popupPlaceNameInput = document.querySelector('#place_name_input');
+const popupImageLinkInput = document.querySelector('#image_link');
+const editPopup = document.querySelector('.popup_type_edit');
+const editButton = document.querySelector('.profile__edit-button');
+const addPopup = document.querySelector('.popup_type_add');
+const addButton = document.querySelector('.profile__add-button');
+
+const settings = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
 
 // Popup edit submit 
 
-function formSubmitHandler (evt) {
+function handleFormSubmit (evt) {
   evt.preventDefault(); 
   profileName.textContent = popupNameInput.value;
   profileStatus.textContent = popupStatusInput.value;
   closeModal (popupEdit);
 }
 
-formUserElement.addEventListener('submit', formSubmitHandler);
+formUserElement.addEventListener('submit', handleFormSubmit);
 
 // default cards creation
 for (let i = 0; i < initialCards.length; i++) {
@@ -43,37 +54,42 @@ for (let i = 0; i < initialCards.length; i++) {
 }
 
 // Add new card submit creation
-function formPlaceSubmitHandler (evt) {
+function handleFormPlaceSubmit (evt) {
   evt.preventDefault(); 
-
-  const popupPlaceNameInput = document.querySelector('#place_name_input');
-  const popupImageLinkInput = document.querySelector('#image_link');
 
   appearCard (popupPlaceNameInput.value, popupImageLinkInput.value);
 
   formPlaceElement.reset();
+
+  const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));
+  toggleButtonState(settings, inputList, evt.target.querySelector('.form__submit'));
   closeModal (popupAdd);
 }
 
-formPlaceElement.addEventListener('submit', formPlaceSubmitHandler);
+formPlaceElement.addEventListener('submit', handleFormPlaceSubmit);
 
 // popup open function
-$openPopupArr.forEach($openBtn => {
-  const $currentPopup = document.getElementById($openBtn.dataset.popup);
-
-  $openBtn.addEventListener('click', () => {
-    openModal($currentPopup);
-
-    if ($currentPopup.classList.contains('popup_type_edit')) {
-      popupNameInput.value = profileName.textContent;
-      popupStatusInput.value = profileStatus.textContent;
-    }
+function openEditPopup (openBtn) {
+  openBtn.addEventListener('click', () => {
+    openModal(editPopup);
+  popupNameInput.value = profileName.textContent;
+  popupStatusInput.value = profileStatus.textContent;
   });
-});
+};
+
+openEditPopup(editButton);
+
+function openAddPopup (openBtn) {
+  openBtn.addEventListener('click', () => {
+    openModal(addPopup);
+  });
+};
+
+openAddPopup(addButton);
 
 // popup close function
 modals.forEach(closePopup);
-modals.forEach(keyboardClosePopup);
 
 //forms validation
-enableValidaton();
+
+enableValidation(settings);
