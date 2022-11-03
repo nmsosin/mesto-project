@@ -1,7 +1,10 @@
 // Variable declarations
 const placeCardTemplate = document.querySelector('#placeCard').content;
+const popupFigure = document.querySelector('#popup_type_image-expand');
+const popupImage = popupFigure.querySelector('.popup__image');
+const popupCaption = popupFigure.querySelector('.popup__caption');
 
-export const initialCards = [
+const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -30,9 +33,23 @@ export const initialCards = [
 
 // Creating cards function
 import {openModal} from "./modal";
-import {likeOnButton} from './utils';
-import {deleteOnButton} from './utils';
 
+// Like button
+function likeOnButton (currentCard) {
+  currentCard.querySelector('.elements__like-button').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('elements__like-button_active');
+  });
+};
+
+// Delete button
+function deleteOnButton (currentCard) {
+  currentCard.querySelector('.elements__delete-button').addEventListener('click', function (evt) {
+    let listItem = evt.target.closest('.elements__item');
+    listItem.remove();
+  });
+};
+
+//Add cards function
 function addCard (cardName, imgLink) {
   const placeCardElement = placeCardTemplate.querySelector('.elements__item').cloneNode(true);
   const placeName = placeCardElement.querySelector('.elements__place');
@@ -46,9 +63,6 @@ function addCard (cardName, imgLink) {
   deleteOnButton (placeCardElement);
 
   placeImage.addEventListener('click', function expand (evt) {
-    const popupFigure = document.querySelector('#popup_type_image-expand');
-    const popupImage = popupFigure.querySelector('.popup__image');
-    const popupCaption = popupFigure.querySelector('.popup__caption');
     popupImage.src = evt.target.src;
     popupImage.alt = evt.target.alt;
     popupCaption.textContent = evt.target.alt;
@@ -59,4 +73,6 @@ function addCard (cardName, imgLink) {
   return placeCardElement;
 }
 
+//exports
+export {initialCards};
 export {addCard};
