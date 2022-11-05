@@ -1,4 +1,8 @@
+
+
 // Variable declarations
+import {getInitialCards, getProfileInfo} from "./api";
+
 const placeCardTemplate = document.querySelector('#placeCard').content;
 
 export const initialCards = [
@@ -33,14 +37,16 @@ import {openModal} from "./modal";
 import {likeOnButton} from './utils';
 import {deleteOnButton} from './utils';
 
-function addCard (cardName, imgLink) {
+function addCard (placeName, imgLink, likes, ownerId, myId, cardId) {
   const placeCardElement = placeCardTemplate.querySelector('.elements__item').cloneNode(true);
-  const placeName = placeCardElement.querySelector('.elements__place');
+  const placeNameElement = placeCardElement.querySelector('.elements__place');
   const placeImage = placeCardElement.querySelector('.elements__image');
+  const likesCount = placeCardElement.querySelector('.elements__like-count');
 
-  placeName.textContent = cardName;
-  placeImage.alt = cardName;
+  placeNameElement.textContent = placeName;
+  placeImage.alt = placeName;
   placeImage.src = imgLink;
+  likesCount.textContent = likes.length;
 
   likeOnButton (placeCardElement);
   deleteOnButton (placeCardElement);
@@ -49,6 +55,7 @@ function addCard (cardName, imgLink) {
     const popupFigure = document.querySelector('#popup_type_image-expand');
     const popupImage = popupFigure.querySelector('.popup__image');
     const popupCaption = popupFigure.querySelector('.popup__caption');
+
     popupImage.src = evt.target.src;
     popupImage.alt = evt.target.alt;
     popupCaption.textContent = evt.target.alt;

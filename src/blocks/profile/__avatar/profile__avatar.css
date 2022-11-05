@@ -4,7 +4,9 @@
   border-radius: 50%;
   object-fit: contain;
   object-position: center;
-
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
 }
 
 @media all and (min-width: 1280px) {

@@ -1,5 +1,6 @@
 //imports
 import {addCard} from "./cards";
+import {deleteCard} from "./api";
 
 // Like button
 function likeOnButton (currentCard) {
@@ -17,13 +18,25 @@ function deleteOnButton (currentCard) {
 };
 
 // Appear cards markdown function
-function appearCard (cardName, imageLink) {
-  const cardElement = addCard(cardName, imageLink);
+function appearCard (placeName, imageLink, likes, ownerId, cardId) {
+  const cardElement = addCard(placeName, imageLink, likes, ownerId, cardId);
   const placeCardsList = document.querySelector('.elements__list');
   placeCardsList.prepend(cardElement);
+}
+
+function updateProfileAppearance(name, status, result) {
+  name.textContent = result.name;
+  status.textContent = result.about;
+};
+
+function updateAvatar(image, result) {
+  image.src = result.avatar;
 }
 
 //exports
 export {likeOnButton};
 export {deleteOnButton};
 export {appearCard};
+export {updateProfileAppearance};
+export {updateAvatar};
+

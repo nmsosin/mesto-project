@@ -2,22 +2,32 @@
 import '../pages/index.css';
 
 //Module exports
-import { initialCards } from './cards';
 import { enableValidation } from "./validate";
 import {appearCard} from "./utils";
+import {updateProfileAppearance} from "./utils";
+import {updateAvatar} from "./utils";
 import {closeModal} from "./modal";
 import {openModal} from "./modal";
 import {closePopup} from "./modal";
 import {toggleButtonState} from "./validate";
 
+//import data from server
+import {getInitialCards} from "./api";
+import {getProfileInfo} from "./api";
+import {updateProfileData} from "./api";
+import {postNewCard} from "./api";
+import {editAvatar} from "./api";
+
 
 // Variable declarations
 const popupEdit = document.querySelector('#popup_edit');
+const avatarImage = document.querySelector('.profile__avatar');
 const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
 const popupNameInput = document.querySelector('#name_input');
 const popupStatusInput = document.querySelector('#status_input');
 const formUserElement = document.querySelector('.form__type_user');
+const formAvatarElement = document.querySelector('.form__type_avatar');
 const popupAdd = document.querySelector('#popup_add');
 const formPlaceElement = document.querySelector('.form__type_place');
 const modals = Array.from(document.querySelectorAll('.popup'));
@@ -25,6 +35,9 @@ const popupPlaceNameInput = document.querySelector('#place_name_input');
 const popupImageLinkInput = document.querySelector('#image_link');
 const editPopup = document.querySelector('.popup_type_edit');
 const editButton = document.querySelector('.profile__edit-button');
+const avatarPopup = document.querySelector('.popup_type_change-avatar');
+const avatarLinkInput = document.querySelector('#avatar_link');
+const changeAvatarButton = document.querySelector('.profile__change-avatar');
 const addPopup = document.querySelector('.popup_type_add');
 const addButton = document.querySelector('.profile__add-button');
 
@@ -37,33 +50,80 @@ const settings = {
   errorClass: 'form__input-error_active'
 };
 
-// Popup edit submit 
+//Get profile server data
+getProfileInfo()
+  .then((result) => {
+    updateAvatar(avatarImage, result);
+    updateProfileAppearance(profileName, profileStatus, result)
+  })
+  .catch((err) => {
+    console.log(`Ой! Произошла ошибка: ${err}`)
+  });
 
+//Change avatar submit
+function handleAvatarSubmit (evt) {
+  evt.preventDefault();
+  editAvatar(avatarLinkInput.value)
+    .then((result) => {
+      updateAvatar(avatarImage, result);
+      closeModal (avatarPopup);
+    })
+    .catch((err) => {
+      console.log(`Ой! Произошла ошибка: ${err}`);
+    })
+
+  updateAvatar(avatarImage, avatarLinkInput.value);
+  closeModal (avatarPopup);
+}
+
+formAvatarElement.addEventListener('submit', handleAvatarSubmit);
+
+
+// Popup edit submit 
 function handleFormSubmit (evt) {
-  evt.preventDefault(); 
-  profileName.textContent = popupNameInput.value;
-  profileStatus.textContent = popupStatusInput.value;
-  closeModal (popupEdit);
+  evt.preventDefault();
+  updateProfileData(popupNameInput.value, popupStatusInput.value)
+    .then((result) => {
+      updateProfileAppearance(profileName, profileStatus, result);
+      closeModal (popupEdit);
+    })
+    .catch((err) => {
+      console.log(`Ой! Произошла ошибка: ${err}`);
+    })
 }
 
 formUserElement.addEventListener('submit', handleFormSubmit);
 
-// default cards creation
-for (let i = 0; i < initialCards.length; i++) {
-  appearCard(initialCards[i].name, initialCards[i].link);
-}
+// initial cards creation
+getInitialCards()
+  .then((result) => {
+    for (let i = 0; i < result.length; i++) {
+      appearCard(result[i].name, result[i].link, result[i].likes, result[i].owner._id, result[i]._id);
+    }
+  })
+  .catch((err) => {
+    console.log(`Ой! Произошла ошибка: ${err}`);
+  });
 
 // Add new card submit creation
 function handleFormPlaceSubmit (evt) {
   evt.preventDefault(); 
 
-  appearCard (popupPlaceNameInput.value, popupImageLinkInput.value);
 
-  formPlaceElement.reset();
+  postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value)
+    .then((result) => {
 
-  const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));
-  toggleButtonState(settings, inputList, evt.target.querySelector('.form__submit'));
-  closeModal (popupAdd);
+      appearCard (result.name, result.link, result.likes, result.owner._id, cardId);
+
+      formPlaceElement.reset();
+
+      const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));
+      toggleButtonState(settings, inputList, evt.target.querySelector('.form__submit'));
+      closeModal (popupAdd);
+    })
+    .catch((err) => {
+      console.log(`Ой! Произошла ошибка: ${err}`);
+    })
 }
 
 formPlaceElement.addEventListener('submit', handleFormPlaceSubmit);
@@ -78,6 +138,14 @@ function openEditPopup (openBtn) {
 };
 
 openEditPopup(editButton);
+
+function changeAvatarPopup (openBtn) {
+  openBtn.addEventListener('click', () => {
+    openModal(avatarPopup);
+  });
+};
+
+changeAvatarPopup(changeAvatarButton);
 
 function openAddPopup (openBtn) {
   openBtn.addEventListener('click', () => {

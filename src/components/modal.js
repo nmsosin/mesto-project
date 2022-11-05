@@ -1,3 +1,7 @@
+//Get server data
+// import {getProfileInfo} from "./api";
+// getProfileInfo();
+
 // popup open function
 function openModal (targetModal) {
   targetModal.classList.add('popup_opened');
@@ -21,7 +25,7 @@ function closeModal (targetModal) {
 }
 
 function closeByEsc (evt) {
-    if(evt.key == 'Escape') {
+    if(evt.key === 'Escape') {
       const openedPopup = document.querySelector('.popup_opened');
       closeModal(openedPopup);
     }
