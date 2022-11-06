@@ -50,15 +50,18 @@ const settings = {
   errorClass: 'form__input-error_active'
 };
 
-//Get profile server data
-getProfileInfo()
-  .then((result) => {
-    updateAvatar(avatarImage, result);
-    updateProfileAppearance(profileName, profileStatus, result)
+//Get profile && cards server data
+Promise.all([getProfileInfo(), getInitialCards()])
+  .then(([user, cards]) => {
+    updateAvatar(avatarImage, user);
+    updateProfileAppearance(profileName, profileStatus, user);
+    const myId = user._id;
+    renderAllCards(cards, myId);
   })
   .catch((err) => {
-    console.log(`Ой! Произошла ошибка: ${err}`)
+    console.log(`Запрос данных завершился ошибкой: ${err}`)
   });
+
 
 //Change avatar submit
 function handleAvatarSubmit (evt) {
@@ -69,7 +72,7 @@ function handleAvatarSubmit (evt) {
       closeModal (avatarPopup);
     })
     .catch((err) => {
-      console.log(`Ой! Произошла ошибка: ${err}`);
+      console.log(`Ой! Аватар заменить не удалось: ${err}`);
     })
 
   updateAvatar(avatarImage, avatarLinkInput.value);
@@ -88,22 +91,18 @@ function handleFormSubmit (evt) {
       closeModal (popupEdit);
     })
     .catch((err) => {
-      console.log(`Ой! Произошла ошибка: ${err}`);
+      console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
     })
 }
 
 formUserElement.addEventListener('submit', handleFormSubmit);
 
 // initial cards creation
-getInitialCards()
-  .then((result) => {
-    for (let i = 0; i < result.length; i++) {
-      appearCard(result[i].name, result[i].link, result[i].likes, result[i].owner._id, result[i]._id);
-    }
-  })
-  .catch((err) => {
-    console.log(`Ой! Произошла ошибка: ${err}`);
-  });
+function renderAllCards(result, myId) {
+  for (let i = 0; i < result.length; i++) {
+    appearCard(result[i].name, result[i].link, result[i].likes, result[i].owner._id, myId, result[i]._id);
+  };
+};
 
 // Add new card submit creation
 function handleFormPlaceSubmit (evt) {
@@ -113,7 +112,7 @@ function handleFormPlaceSubmit (evt) {
   postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value)
     .then((result) => {
 
-      appearCard (result.name, result.link, result.likes, result.owner._id, cardId);
+      appearCard (result.name, result.link, result.likes, result.owner._id, myId, cardId);
 
       formPlaceElement.reset();
 
@@ -122,7 +121,7 @@ function handleFormPlaceSubmit (evt) {
       closeModal (popupAdd);
     })
     .catch((err) => {
-      console.log(`Ой! Произошла ошибка: ${err}`);
+      console.log(`Ой! Добавить новую карточку не удалось: ${err}`);
     })
 }
 

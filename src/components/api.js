@@ -82,7 +82,7 @@ export function postNewCard (name, link) {
 
 //Delete my card
 export function deleteCard (cardId) {
-  return fetch (`${config.baseUrl}/cards/cardId`,  {
+  return fetch (`${config.baseUrl}/cards/${cardId}`,  {
     method: 'DELETE',
     headers: config.headers
   })
@@ -91,10 +91,10 @@ export function deleteCard (cardId) {
     })
 }
 
-//Like card
+//Like && remove like
 export function likeAdd (cardId) {
-  return fetch (`${config.baseUrl}/cards/cardId`,  {
-    method: 'DELETE',
+  return fetch (`${config.baseUrl}/cards/likes/${cardId}`,  {
+    method: 'PUT',
     headers: config.headers
   })
     .then(res => {
@@ -103,7 +103,7 @@ export function likeAdd (cardId) {
 }
 
 export function likeRemove (cardId) {
-  return fetch (`${config.baseUrl}/cards/cardId`,  {
+  return fetch (`${config.baseUrl}/cards/likes/${cardId}`,  {
     method: 'DELETE',
     headers: config.headers
   })
