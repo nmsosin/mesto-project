@@ -72,13 +72,14 @@ function updateAvatar(image, result) {
 //Render loading for submit
 function renderLoading(currentSubmit, isLoading) {
   if (isLoading) {
-    currentSubmit.textContent = 'Сохранение...';
+    currentSubmit.value = 'Сохранение...';
     currentSubmit.classList.add('form__submit_is-loading');
-    console.log(currentSubmit.textContent);
-  } else {
-    currentSubmit.textContent = currentSubmit.value;
+  } else if (currentSubmit.classList.contains('form__submit_place')) {
+    currentSubmit.value = 'Создать';
     currentSubmit.classList.remove('form__submit_is-loading');
-    console.log(currentSubmit.textContent);
+  } else {
+    currentSubmit.value = 'Сохранить';
+    currentSubmit.classList.remove('form__submit_is-loading');
   }
 }
 
