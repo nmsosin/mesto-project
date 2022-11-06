@@ -62,7 +62,7 @@ function handleFormPlaceSubmit (evt) {
   formPlaceElement.reset();
 
   const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));
-  toggleButtonState(settings, inputList, evt.submitter);
+  toggleButtonState(settings, inputList, evt.target.querySelector('.form__submit'));
   closeModal (popupAdd);
 }
 

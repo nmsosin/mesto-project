@@ -1,0 +1,23 @@
+.profile__change-avatar {
+  border: none;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 47px;
+  left: 47px;
+  translate: transform(50%, 50%);
+  z-index: 1;
+  background: transparent;
+  background-image: url(../../../images/edit_button.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0;
+  opacity: 0;
+  transition: opacity .3s ease-in 0s;
+}
+
+.profile__avatar-wrapper:hover .profile__change-avatar {
+  opacity: 1;
+}

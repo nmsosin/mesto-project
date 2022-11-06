@@ -22,13 +22,11 @@ function closeModal (targetModal) {
 }
 
 function closeByEsc (evt) {
-    if(evt.key == 'Escape') {
+    if(evt.key === 'Escape') {
       const openedPopup = document.querySelector('.popup_opened');
       closeModal(openedPopup);
     }
 }
 
 //exports
-export {openModal};
-export {closePopup};
-export {closeModal};
+export {openModal, closePopup, closeModal};
