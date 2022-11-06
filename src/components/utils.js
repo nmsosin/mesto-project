@@ -71,10 +71,24 @@ function updateAvatar(image, result) {
   image.src = result.avatar;
 }
 
+//Render loading for submit
+function renderLoading(currentSubmit, isLoading) {
+  if (isLoading) {
+    currentSubmit.textContent = 'Сохранение...';
+    currentSubmit.classList.add('form__submit_is-loading');
+    console.log(currentSubmit.textContent);
+  } else {
+    currentSubmit.textContent = currentSubmit.value;
+    currentSubmit.classList.remove('form__submit_is-loading');
+    console.log(currentSubmit.textContent);
+  }
+}
+
 //exports
 export {likeOnButton};
 export {deleteOnButton};
 export {appearCard};
 export {updateProfileAppearance};
 export {updateAvatar};
+export {renderLoading};
 

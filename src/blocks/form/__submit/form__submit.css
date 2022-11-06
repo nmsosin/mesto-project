@@ -9,7 +9,7 @@
   font-family: inherit;
   font-size: 14px;
   line-height: 1;
-  color: #fff;
+  color: rgba(255, 255, 255, 1);
   transition: background-color .3s ease-in 0s;
   cursor: pointer;
 }
@@ -23,5 +23,21 @@
     font-size: 18px;
     width: 358px;
     margin: 18px 0 0;
+  }
+}
+
+.form__submit_is-loading {
+  animation: blinking 3s ease-in-out;
+}
+
+@keyframes blinking {
+  0% {
+    color: rgba(255, 255, 255, 1);
+  }
+  50% {
+    color: rgba(255, 255, 255, 0);
+  }
+  100% {
+    color: rgba(255, 255, 255, 0);
   }
 }

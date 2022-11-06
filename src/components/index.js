@@ -6,6 +6,7 @@ import { enableValidation } from "./validate";
 import {appearCard} from "./utils";
 import {updateProfileAppearance} from "./utils";
 import {updateAvatar} from "./utils";
+import {renderLoading} from "./utils";
 import {closeModal} from "./modal";
 import {openModal} from "./modal";
 import {closePopup} from "./modal";
@@ -66,6 +67,7 @@ Promise.all([getProfileInfo(), getInitialCards()])
 //Change avatar submit
 function handleAvatarSubmit (evt) {
   evt.preventDefault();
+  renderLoading(evt.submitter, true);
   editAvatar(avatarLinkInput.value)
     .then((result) => {
       updateAvatar(avatarImage, result);
@@ -73,6 +75,9 @@ function handleAvatarSubmit (evt) {
     })
     .catch((err) => {
       console.log(`Ой! Аватар заменить не удалось: ${err}`);
+    })
+    .finally(() => {
+      renderLoading(evt.submitter, false);
     })
 
   updateAvatar(avatarImage, avatarLinkInput.value);
@@ -85,6 +90,7 @@ formAvatarElement.addEventListener('submit', handleAvatarSubmit);
 // Popup edit submit 
 function handleEditFormSubmit (evt) {
   evt.preventDefault();
+  renderLoading(evt.submitter, true);
   updateProfileData(popupNameInput.value, popupStatusInput.value)
     .then((result) => {
       updateProfileAppearance(profileName, profileStatus, result);
@@ -92,6 +98,9 @@ function handleEditFormSubmit (evt) {
     })
     .catch((err) => {
       console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
+    })
+    .finally(() => {
+      renderLoading(evt.submitter, false);
     })
 }
 
@@ -109,11 +118,11 @@ function renderAllCards(result, myId) {
 // Add new card submit creation
 function handleFormPlaceSubmit (evt) {
   evt.preventDefault();
+  renderLoading(evt.submitter, true);
   Promise.all([postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value), getProfileInfo()])
     .then(([result, user]) => {
       const myId = user._id;
       appearCard (result.name, result.link, result.likes, result.owner._id, myId, result._id);
-      console.log(result);
       formPlaceElement.reset();
 
       const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));
@@ -122,6 +131,9 @@ function handleFormPlaceSubmit (evt) {
     })
     .catch((err) => {
       console.log(`Ой! Добавить новую карточку не удалось: ${err}`);
+    })
+    .finally(() => {
+      renderLoading(evt.submitter, false);
     })
 }
 
