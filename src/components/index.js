@@ -59,18 +59,15 @@ function handleAvatarSubmit (evt) {
   renderLoading(evt.submitter, true);
   editAvatar(avatarLinkInput.value)
     .then((result) => {
-      updateAvatar(avatarImage, result);
       closeModal (avatarPopup);
+      updateAvatar(avatarImage, result);
     })
     .catch((err) => {
       console.log(`Ой! Аватар заменить не удалось: ${err}`);
     })
     .finally(() => {
-      renderLoading(evt.submitter, false);
-    })
-
-  updateAvatar(avatarImage, avatarLinkInput.value);
-  closeModal (avatarPopup);
+      setTimeout(renderLoading, 1000, evt.submitter, false);
+      })
 }
 
 formAvatarElement.addEventListener('submit', handleAvatarSubmit);
@@ -89,7 +86,7 @@ function handleEditFormSubmit (evt) {
       console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
     })
     .finally(() => {
-      renderLoading(evt.submitter, false);
+      setTimeout(renderLoading, 1000, evt.submitter, false);
     })
 }
 
@@ -122,7 +119,7 @@ function handleFormPlaceSubmit (evt) {
       console.log(`Ой! Добавить новую карточку не удалось: ${err}`);
     })
     .finally(() => {
-      renderLoading(evt.submitter, false);
+      setTimeout(renderLoading, 1000, evt.submitter, false);
     })
 }
 
