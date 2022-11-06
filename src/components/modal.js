@@ -13,19 +13,18 @@ function closePopup (currentPopup) {
       evt.stopPropagation();
     }
   });
-
+  document.removeEventListener('keydown', closeByEsc);
 }
 
 function closeModal (targetModal) {
   targetModal.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEsc);
 }
 
 function closeByEsc (evt) {
-    if(evt.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_opened');
-      closeModal(openedPopup);
-    }
+  if(evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closeModal(openedPopup);
+  }
 }
 
 //exports

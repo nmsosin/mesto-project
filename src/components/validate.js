@@ -1,4 +1,4 @@
- //forms & input fields validation
+//forms & input fields validation
 const showInputError = (settings, formElement, inputElement, errorMessage) => {
   const formError = formElement.querySelector(`.${inputElement.id}_error`);
   inputElement.classList.add(settings.inputErrorClass);
@@ -65,4 +65,4 @@ const enableValidation = (settings) => {
 };
 
 //exports
- export {toggleButtonState, enableValidation};
+export {toggleButtonState, enableValidation};

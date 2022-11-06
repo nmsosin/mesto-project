@@ -45,7 +45,7 @@ export function updateProfileData (name, status) {
       name: `${name}`,
       about: `${status}`
     })
-})
+  })
     .then(res => {
       return checkPromiseResponse(res);
     })
@@ -111,4 +111,3 @@ export function likeRemove (cardId) {
       return checkPromiseResponse(res);
     })
 }
-
