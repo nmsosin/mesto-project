@@ -159,5 +159,4 @@ openAddPopup(addButton);
 modals.forEach(closePopup);
 
 //forms validation
-
 enableValidation(settings);
