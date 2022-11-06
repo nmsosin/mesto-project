@@ -1,7 +1,3 @@
-//Get server data
-// import {getProfileInfo} from "./api";
-// getProfileInfo();
-
 // popup open function
 function openModal (targetModal) {
   targetModal.classList.add('popup_opened');
@@ -32,6 +28,4 @@ function closeByEsc (evt) {
 }
 
 //exports
-export {openModal};
-export {closePopup};
-export {closeModal};
+export {openModal, closePopup, closeModal};

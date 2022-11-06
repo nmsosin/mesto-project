@@ -1,24 +1,13 @@
 //Styles import
 import '../pages/index.css';
 
-//Module exports
-import { enableValidation } from "./validate";
-import {appearCard} from "./utils";
-import {updateProfileAppearance} from "./utils";
-import {updateAvatar} from "./utils";
-import {renderLoading} from "./utils";
-import {closeModal} from "./modal";
-import {openModal} from "./modal";
-import {closePopup} from "./modal";
-import {toggleButtonState} from "./validate";
+//Module imports
+import { enableValidation, toggleButtonState} from "./validate";
+import {appearCard, updateProfileAppearance, updateAvatar, renderLoading} from "./utils";
+import {openModal, closeModal, closePopup} from "./modal";
 
 //import data from server
-import {getInitialCards} from "./api";
-import {getProfileInfo} from "./api";
-import {updateProfileData} from "./api";
-import {postNewCard} from "./api";
-import {editAvatar} from "./api";
-
+import {getInitialCards, getProfileInfo, updateProfileData, postNewCard, editAvatar} from "./api";
 
 // Variable declarations
 const popupEdit = document.querySelector('#popup_edit');

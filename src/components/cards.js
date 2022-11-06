@@ -3,8 +3,7 @@ const placeCardTemplate = document.querySelector('#placeCard').content;
 
 // Creating cards function
 import {openModal} from "./modal";
-import {likeOnButton} from './utils';
-import {deleteOnButton} from './utils';
+import {likeOnButton, deleteOnButton} from './utils';
 
 function addCard (placeName, imgLink, likes, ownerId, myId, cardId) {
   const placeCardElement = placeCardTemplate.querySelector('.elements__item').cloneNode(true);

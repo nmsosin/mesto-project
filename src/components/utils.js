@@ -1,8 +1,6 @@
 //imports
 import {addCard} from "./cards";
-import {deleteCard} from "./api";
-import {likeAdd} from "./api";
-import {likeRemove} from "./api";
+import {deleteCard, likeAdd, likeRemove} from "./api";
 
 // Like button
 function likeOnButton (currentCard, currentCardId, likes, myId) {
@@ -85,10 +83,4 @@ function renderLoading(currentSubmit, isLoading) {
 }
 
 //exports
-export {likeOnButton};
-export {deleteOnButton};
-export {appearCard};
-export {updateProfileAppearance};
-export {updateAvatar};
-export {renderLoading};
-
+export {likeOnButton, deleteOnButton, appearCard, updateProfileAppearance, updateAvatar, renderLoading};

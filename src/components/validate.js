@@ -65,5 +65,4 @@ const enableValidation = (settings) => {
 };
 
 //exports
- export {toggleButtonState};
- export {enableValidation};
+ export {toggleButtonState, enableValidation};
