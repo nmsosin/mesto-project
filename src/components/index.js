@@ -83,7 +83,7 @@ formAvatarElement.addEventListener('submit', handleAvatarSubmit);
 
 
 // Popup edit submit 
-function handleFormSubmit (evt) {
+function handleEditFormSubmit (evt) {
   evt.preventDefault();
   updateProfileData(popupNameInput.value, popupStatusInput.value)
     .then((result) => {
@@ -95,25 +95,25 @@ function handleFormSubmit (evt) {
     })
 }
 
-formUserElement.addEventListener('submit', handleFormSubmit);
+formUserElement.addEventListener('submit', handleEditFormSubmit);
+
 
 // initial cards creation
 function renderAllCards(result, myId) {
-  for (let i = 0; i < result.length; i++) {
+  for (let i = result.length - 1; i >= 0; i--) {
     appearCard(result[i].name, result[i].link, result[i].likes, result[i].owner._id, myId, result[i]._id);
   };
 };
 
+
 // Add new card submit creation
 function handleFormPlaceSubmit (evt) {
-  evt.preventDefault(); 
-
-
-  postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value)
-    .then((result) => {
-
-      appearCard (result.name, result.link, result.likes, result.owner._id, myId, cardId);
-
+  evt.preventDefault();
+  Promise.all([postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value), getProfileInfo()])
+    .then(([result, user]) => {
+      const myId = user._id;
+      appearCard (result.name, result.link, result.likes, result.owner._id, myId, result._id);
+      console.log(result);
       formPlaceElement.reset();
 
       const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));

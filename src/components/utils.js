@@ -5,22 +5,16 @@ import {likeAdd} from "./api";
 import {likeRemove} from "./api";
 
 // Like button
-
-// function checkMyLike (currentCard, currentCardId, likes, myId) {
-//   // const likeButton = currentCard.querySelector('.elements__like-button');
-//  return likes.some((user) => {return user._id == myId});
-// }
-
 function likeOnButton (currentCard, currentCardId, likes, myId) {
   const likeButton = currentCard.querySelector('.elements__like-button');
   const likesCount = currentCard.querySelector('.elements__like-count');
+
   //check my like
   if (likes.some((user) => {return user._id == myId})) {
     likeButton.classList.toggle('elements__like-button_active');
   }
 
   likeButton.addEventListener('click', function (evt) {
-    // evt.target.classList.toggle('elements__like-button_active');
 
     if (likes.some((user) => {return user._id == myId})) {
       likeRemove (currentCardId)
@@ -65,7 +59,7 @@ function deleteOnButton (currentCard, currentCardId) {
 function appearCard (placeName, imageLink, likes, ownerId, myId, cardId) {
   const cardElement = addCard(placeName, imageLink, likes, ownerId, myId, cardId);
   const placeCardsList = document.querySelector('.elements__list');
-  placeCardsList.append(cardElement);
+  placeCardsList.prepend(cardElement);
 }
 
 function updateProfileAppearance(name, status, result) {
