@@ -97,7 +97,7 @@ formUserElement.addEventListener('submit', handleEditFormSubmit);
 
 // initial cards creation
 function renderAllCards(result, myId) {
-  result.slice().reverse().forEach((obj) => prependCard(obj.name, obj.link, obj.likes, obj.owner._id, obj.myId, obj._id));
+  result.slice().reverse().forEach((obj) => prependCard(obj.name, obj.link, obj.likes, obj.owner._id, myId, obj._id));
 };
 
 
@@ -110,8 +110,6 @@ function handleFormPlaceSubmit (evt) {
       prependCard (result.name, result.link, result.likes, result.owner._id, myId, result._id);
       formPlaceElement.reset();
 
-      const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));
-      // toggleButtonState(settings, inputList, evt.target.querySelector('.form__submit'));
       closeModal (popupAdd);
     })
     .catch((err) => {
