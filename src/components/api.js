@@ -9,7 +9,7 @@ const config = {
 
 //unified api request
 function apiRequest (url, options) {
-  return fetch(url, options).then(checkPromiseResponse);
+  return fetch(url, options).then(checkPromiseResponse).catch((err) => console.log(err));
 }
 
 

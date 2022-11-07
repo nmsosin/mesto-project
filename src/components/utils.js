@@ -1,62 +1,12 @@
+//Variable declarations
+const placeCardsList = document.querySelector('.elements__list');
+
 //imports
 import {addCard} from "./cards";
-import {deleteCard, likeAdd, likeRemove} from "./api";
 
-// Like button
-function likeOnButton (currentCard, currentCardId, likes, myId) {
-  const likeButton = currentCard.querySelector('.elements__like-button');
-  const likesCount = currentCard.querySelector('.elements__like-count');
-
-  //check my like
-  if (likes.some((user) => {return user._id == myId})) {
-    likeButton.classList.toggle('elements__like-button_active');
-  }
-
-  likeButton.addEventListener('click', function (evt) {
-
-    if (likes.some((user) => {return user._id == myId})) {
-      likeRemove (currentCardId)
-        .then((result) => {
-          evt.target.classList.remove('elements__like-button_active');
-          likes = result.likes;
-          likesCount.textContent = likes.length;
-        })
-        .catch((err) => {
-          console.log(`Упс! Удалить лайк не удалось: ${err}`)
-        });
-
-    } else {
-      likeAdd (currentCardId)
-        .then((result) => {
-          evt.target.classList.add('elements__like-button_active');
-          likes = result.likes;
-          likesCount.textContent = likes.length;
-        })
-        .catch((err) => {
-          console.log(`Упс! Поставить лайк не удалось: ${err}`)
-        });
-    }
-  });
-};
-
-// Delete button
-function deleteOnButton (currentCard, currentCardId) {
-  const deleteButton = currentCard.querySelector('.elements__delete-button');
-  deleteButton.addEventListener('click', function (evt) {
-
-    let listItem = evt.target.closest('.elements__item');
-    deleteCard(currentCardId)
-      .then((result) => {
-        console.log(result);
-      });
-    listItem.remove();
-  });
-};
-
-// Appear cards markdown function
-function appearCard (placeName, imageLink, likes, ownerId, myId, cardId) {
+// Prepend cards markdown function
+function prependCard (placeName, imageLink, likes, ownerId, myId, cardId) {
   const cardElement = addCard(placeName, imageLink, likes, ownerId, myId, cardId);
-  const placeCardsList = document.querySelector('.elements__list');
   placeCardsList.prepend(cardElement);
 }
 
@@ -84,4 +34,4 @@ function renderLoading(currentSubmit, isLoading) {
 }
 
 //exports
-export {likeOnButton, deleteOnButton, appearCard, updateProfileAppearance, updateAvatar, renderLoading};
+export {prependCard, updateProfileAppearance, updateAvatar, renderLoading};

@@ -13,7 +13,6 @@ function closePopup (currentPopup) {
       evt.stopPropagation();
     }
   });
-  document.removeEventListener('keydown', closeByEsc);
 }
 
 function closeModal (targetModal) {

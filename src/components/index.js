@@ -3,13 +3,14 @@ import '../pages/index.css';
 
 //Module imports
 import { enableValidation, toggleButtonState} from "./validate";
-import {appearCard, updateProfileAppearance, updateAvatar, renderLoading} from "./utils";
+import {prependCard, updateProfileAppearance, updateAvatar, renderLoading} from "./utils";
 import {openModal, closeModal, closePopup} from "./modal";
 
 //import data from server
 import {getInitialCards, getProfileInfo, updateProfileData, postNewCard, editAvatar} from "./api";
 
 // Variable declarations
+let myId;
 const popupEdit = document.querySelector('#popup_edit');
 const avatarImage = document.querySelector('.profile__avatar');
 const profileName = document.querySelector('.profile__name');
@@ -45,7 +46,7 @@ Promise.all([getProfileInfo(), getInitialCards()])
   .then(([user, cards]) => {
     updateAvatar(avatarImage, user);
     updateProfileAppearance(profileName, profileStatus, user);
-    const myId = user._id;
+    myId = user._id;
     renderAllCards(cards, myId);
   })
   .catch((err) => {
@@ -61,6 +62,7 @@ function handleAvatarSubmit (evt) {
     .then((result) => {
       closeModal (avatarPopup);
       updateAvatar(avatarImage, result);
+      formAvatarElement.reset();
     })
     .catch((err) => {
       console.log(`Ой! Аватар заменить не удалось: ${err}`);
@@ -95,9 +97,7 @@ formUserElement.addEventListener('submit', handleEditFormSubmit);
 
 // initial cards creation
 function renderAllCards(result, myId) {
-  for (let i = result.length - 1; i >= 0; i--) {
-    appearCard(result[i].name, result[i].link, result[i].likes, result[i].owner._id, myId, result[i]._id);
-  };
+  result.slice().reverse().forEach((obj) => prependCard(obj.name, obj.link, obj.likes, obj.owner._id, obj.myId, obj._id));
 };
 
 
@@ -105,14 +105,13 @@ function renderAllCards(result, myId) {
 function handleFormPlaceSubmit (evt) {
   evt.preventDefault();
   renderLoading(evt.submitter, true);
-  Promise.all([postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value), getProfileInfo()])
-    .then(([result, user]) => {
-      const myId = user._id;
-      appearCard (result.name, result.link, result.likes, result.owner._id, myId, result._id);
+  postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value)
+    .then((result) => {
+      prependCard (result.name, result.link, result.likes, result.owner._id, myId, result._id);
       formPlaceElement.reset();
 
       const inputList = Array.from(formPlaceElement.querySelectorAll('.form__input'));
-      toggleButtonState(settings, inputList, evt.target.querySelector('.form__submit'));
+      // toggleButtonState(settings, inputList, evt.target.querySelector('.form__submit'));
       closeModal (popupAdd);
     })
     .catch((err) => {

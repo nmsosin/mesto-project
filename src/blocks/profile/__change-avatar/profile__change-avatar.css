@@ -7,7 +7,6 @@
   top: 47px;
   left: 47px;
   translate: transform(50%, 50%);
-  z-index: 1;
   background: transparent;
   background-image: url(../../../images/edit_button.svg);
   background-size: contain;
@@ -16,6 +15,7 @@
   padding: 0;
   opacity: 0;
   transition: opacity .3s ease-in 0s;
+  cursor: pointer;
 }
 
 .profile__avatar-wrapper:hover .profile__change-avatar {
