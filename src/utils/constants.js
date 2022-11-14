@@ -4,6 +4,8 @@ export let myId;
 export const profileNameSelector = ".profile__name";
 export const profileStatusSelector = ".profile__status";
 export const profileAvatarSelector = ".profile__avatar";
+export const placeImageSelector = ".elements__place";
+export const placeNameSelector = ".elements__image";
 
 export const popupEdit = document.querySelector("#popup_edit");
 export const avatarImage = document.querySelector(".profile__avatar");
