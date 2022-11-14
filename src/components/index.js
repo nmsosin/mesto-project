@@ -1,5 +1,5 @@
 //Styles import
-import '../pages/index.css';
+import "../pages/index.css";
 
 //Module imports
 // import { enableValidation, toggleButtonState} from "./validate";
@@ -10,10 +10,11 @@ import '../pages/index.css';
 // import {getInitialCards, getProfileInfo, updateProfileData, postNewCard, editAvatar} from "./api";
 
 //Import constants from utils
-import * as constants from '../utils/constants';
+import * as constants from "../utils/constants";
 
-import Api from './Api';
-import Card from './Card';
+import Api from "./Api";
+import Card from "./Card";
+import Section from "./Section";
 
 const api = new Api(constants.config);
 //Get profile && cards server data
@@ -22,25 +23,23 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
     //updateAvatar(avatarImage, user);
     //updateProfileAppearance(profileName, profileStatus, user);
     //myId = user._id;
-    const section = new Section({
-      items: cards,
-      renderer: () => {
+    const section = new Section(
+      {
+        items: cards,
+        renderer: (item) => {
+          const card = new Card(item, "#placeCard", () => {});
+          const cardElement = card.generate();
+          section.addItem(cardElement);
+        },
+      },
+      ".elements__list"
+    );
 
-      }
-    }, '.elements__list')
-
-    cards.forEach(cardData => {
-      const card = new Card(cardData, '#placeCard', () => {});
-      const cardElement = card.generate();
-    // TODO: prepend card to the container
-      
-    })
-    //renderAllCards(cards, myId);
+    section.renderItems();
   })
   .catch((err) => {
-    console.log(`Запрос данных завершился ошибкой: ${err}`)
+    console.log(`Запрос данных завершился ошибкой: ${err}`);
   });
-
 
 //Change avatar submit
 // function handleAvatarSubmit (evt) {
@@ -62,7 +61,6 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
 
 // formAvatarElement.addEventListener('submit', handleAvatarSubmit);
 
-
 // // Popup edit submit
 // function handleEditFormSubmit (evt) {
 //   evt.preventDefault();
@@ -82,12 +80,10 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
 
 // formUserElement.addEventListener('submit', handleEditFormSubmit);
 
-
 // // initial cards creation
 // function renderAllCards(result, myId) {
 //   result.slice().reverse().forEach((obj) => prependCard(obj.name, obj.link, obj.likes, obj.owner._id, myId, obj._id));
 // };
-
 
 // // Add new card submit creation
 // function handleFormPlaceSubmit (evt) {
