@@ -15,14 +15,19 @@ import * as constants from "../utils/constants";
 import Api from "./Api";
 import Card from "./Card";
 import Section from "./Section";
+import UserInfo from "./UserInfo";
 
 const api = new Api(constants.config);
+const userInfo = new UserInfo({
+  nameSelector: constants.profileNameSelector,
+  aboutSelector: constants.profileStatusSelector,
+  avatarSelector: constants.profileAvatarSelector,
+});
 //Get profile && cards server data
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
-    //updateAvatar(avatarImage, user);
-    //updateProfileAppearance(profileName, profileStatus, user);
-    //myId = user._id;
+    userInfo.setUserInfo(user);
+
     const section = new Section(
       {
         items: cards,
