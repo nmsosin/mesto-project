@@ -2,7 +2,7 @@
 export let myId;
 
 export const profileNameSelector = ".profile__name";
-export const profileStatusSelector = ".profile__status";
+export const profileAboutSelector = ".profile__status";
 export const profileAvatarSelector = ".profile__avatar";
 export const placeImageSelector = ".elements__place";
 export const placeNameSelector = ".elements__image";
@@ -10,9 +10,9 @@ export const placeNameSelector = ".elements__image";
 export const popupEdit = document.querySelector("#popup_edit");
 export const avatarImage = document.querySelector(".profile__avatar");
 export const profileName = document.querySelector(".profile__name");
-export const profileStatus = document.querySelector(".profile__status");
+export const profileAbout = document.querySelector(".profile__status");
 export const popupNameInput = document.querySelector("#name_input");
-export const popupStatusInput = document.querySelector("#status_input");
+export const popupAboutInput = document.querySelector("#status_input");
 export const formUserElement = document.querySelector(".form__type_user");
 export const formAvatarElement = document.querySelector(".form__type_avatar");
 export const popupAdd = document.querySelector("#popup_add");

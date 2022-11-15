@@ -13,7 +13,6 @@ export default class Api {
 
   //unified api request
   _apiRequest (url, options) {
-    console.log(url);
     return fetch(url, options).then(this._checkPromiseResponse).catch((err) => console.log(err));
   }
 
@@ -32,13 +31,13 @@ getInitialCards = () => {
 }
 
 //Update profile data
-updateProfileData (name, status) {
+updateProfileData (name, about) {
   return this._apiRequest (`${this._config.baseUrl}/users/me`,  {
     method: 'PATCH',
     headers: this._config.headers,
     body: JSON.stringify({
       name: `${name}`,
-      about: `${status}`
+      about: `${about}`
     })
 });
 }

@@ -16,18 +16,18 @@ import Api from "./Api";
 import Card from "./Card";
 import Section from "./Section";
 import UserInfo from "./UserInfo";
+import PopupWithForm from "./PopupWithForm";
 
 const api = new Api(constants.config);
 const userInfo = new UserInfo({
   nameSelector: constants.profileNameSelector,
-  aboutSelector: constants.profileStatusSelector,
+  aboutSelector: constants.profileAboutSelector,
   avatarSelector: constants.profileAvatarSelector,
 });
 //Get profile && cards server data
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
     userInfo.setUserInfo(user);
-
     const section = new Section(
       {
         items: cards,
@@ -46,6 +46,29 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
     console.log(`Запрос данных завершился ошибкой: ${err}`);
   });
 
+// Popup edit submit
+function handleEditFormSubmit (evt) {
+  evt.preventDefault();
+  renderLoading(evt.submitter, true);
+  updateProfileData(popupNameInput.value, popupAboutInput.value)
+    .then((result) => {
+      updateProfileAppearance(profileName, profileAbout, result);
+      editPopup.close();
+    })
+    .catch((err) => {
+      console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
+    })
+    .finally(() => {
+      setTimeout(renderLoading, 1000, evt.submitter, false);
+    })
+}
+
+const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
+profilePopup.setEventListeners();
+constants.editButton.addEventListener('click', () => {
+  profilePopup.setInputValues(userInfo.getUserInfo());
+  profilePopup.open();
+});
 //Change avatar submit
 // function handleAvatarSubmit (evt) {
 //   evt.preventDefault();
@@ -66,24 +89,7 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
 
 // formAvatarElement.addEventListener('submit', handleAvatarSubmit);
 
-// // Popup edit submit
-// function handleEditFormSubmit (evt) {
-//   evt.preventDefault();
-//   renderLoading(evt.submitter, true);
-//   updateProfileData(popupNameInput.value, popupStatusInput.value)
-//     .then((result) => {
-//       updateProfileAppearance(profileName, profileStatus, result);
-//       closeModal (popupEdit);
-//     })
-//     .catch((err) => {
-//       console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
-//     })
-//     .finally(() => {
-//       setTimeout(renderLoading, 1000, evt.submitter, false);
-//     })
-// }
 
-// formUserElement.addEventListener('submit', handleEditFormSubmit);
 
 // // initial cards creation
 // function renderAllCards(result, myId) {
@@ -116,7 +122,7 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
 //   openBtn.addEventListener('click', () => {
 //     openModal(editPopup);
 //     popupNameInput.value = profileName.textContent;
-//     popupStatusInput.value = profileStatus.textContent;
+//     popupAboutInput.value = profileAbout.textContent;
 //   });
 // };
 

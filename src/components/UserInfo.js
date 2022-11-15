@@ -7,7 +7,13 @@ export default class UserInfo {
     this.userId = null;
   }
 
-  _getUserInfo() {}
+  getUserInfo() {
+    console.log(this._about.textContent);
+    return {
+      name: this._name.textContent,
+      about: this._about.textContent
+    }
+  }
 
   setUserInfo({ name, about, avatar, _id }) {
     this._name.textContent = name;
