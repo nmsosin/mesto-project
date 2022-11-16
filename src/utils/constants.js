@@ -17,8 +17,8 @@ export const popupAboutInput = document.querySelector("#status_input");
 // export const popupAdd = document.querySelector("#popup_add");
 // export const formPlaceElement = document.querySelector(".form__type_place");
 // export const modals = Array.from(document.querySelectorAll(".popup"));
-// export const popupPlaceNameInput = document.querySelector("#place_name_input");
-// export const popupImageLinkInput = document.querySelector("#image_link");
+export const popupPlaceNameInput = document.querySelector("#place_name_input");
+export const popupImageLinkInput = document.querySelector("#image_link");
 // export const editPopup = document.querySelector(".popup_type_edit");
 /* use */ export const editButton = document.querySelector(
   ".profile__edit-button"
@@ -29,7 +29,7 @@ export const popupAboutInput = document.querySelector("#status_input");
 //   ".profile__change-avatar"
 // );
 // export const addPopup = document.querySelector(".popup_type_add");
-// export const addButton = document.querySelector(".profile__add-button");
+export const addButton = document.querySelector(".profile__add-button");
 
 export const settings = {
   formSelector: ".form",

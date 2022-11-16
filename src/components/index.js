@@ -19,6 +19,7 @@ import UserInfo from "./UserInfo";
 import PopupWithForm from "./PopupWithForm";
 import PopupWithImage from "./PopupWithImage";
 
+let section;
 const api = new Api(constants.config);
 const userInfo = new UserInfo({
   nameSelector: constants.profileNameSelector,
@@ -61,7 +62,7 @@ const createCard = (item) => {
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
     userInfo.setUserInfo(user);
-    const section = new Section(
+    section = new Section(
       {
         items: cards,
         renderer: (item) => {
@@ -106,8 +107,21 @@ function handleEditFormSubmit(evt) {
 
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(evt.submitter, true);
-  api.postNewCard();
+  newCardPopup.renderLoading(true, "Создание...");
+  api
+    .postNewCard(
+      constants.popupPlaceNameInput.value,
+      constants.popupImageLinkInput.value
+    )
+    .then((data) => {
+      const cardElement = createCard(data);
+      section.addItem(cardElement);
+      newCardPopup.close();
+    })
+    .catch((err) => console.warn(err))
+    .finally(() => {
+      setTimeout(() => newCardPopup.renderLoading(false), 1000);
+    });
 }
 
 const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
@@ -120,7 +134,9 @@ constants.editButton.addEventListener("click", () => {
 const imageExpandPopup = new PopupWithImage(".popup_type_image-expand");
 imageExpandPopup.setEventListeners();
 
-const newCardPopup = new PopupWithForm("#popup_add", () => {});
+const newCardPopup = new PopupWithForm("#popup_add", handleAddFormSubmit);
+newCardPopup.setEventListeners();
+constants.addButton.addEventListener("click", () => newCardPopup.open());
 
 //Change avatar submit
 // function handleAvatarSubmit (evt) {
