@@ -6,7 +6,7 @@ import "../pages/index.css";
 // import {prependCard, updateProfileAppearance, updateAvatar, renderLoading} from "./utils";
 // import {openModal, closeModal, closePopup} from "./modal";
 
-// //import data from server
+// // import data from server
 // import {getInitialCards, getProfileInfo, updateProfileData, postNewCard, editAvatar} from "./api";
 
 //Import constants from utils
@@ -42,6 +42,11 @@ const createCard = (item) => {
     },
 
     handleCardClick: () => {},
+    handleDeleteClick: (cardElement, cardId) => {
+      api.deleteCard(cardId)
+      .then(() => cardElement.remove())
+      .catch(err => console.warn(err));
+    },
   });
   const cardElement = card.generate();
   return cardElement;
