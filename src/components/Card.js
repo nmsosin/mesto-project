@@ -5,16 +5,19 @@ export default class Card {
     data,
     templateSelector,
     userId,
-    { handleCardClick, handleLikeClick }
+    { handleCardClick, handleLikeClick, handleDeleteClick }
   ) {
     this._data = data;
     this._userId = userId;
     this._templateSelector = templateSelector;
+
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
+    this._handleDeleteClick = handleDeleteClick;
 
     this._element = this._getElement();
     this._likeButton = this._element.querySelector(likeButtonSelector);
+    this._deleteButton = this._element.querySelector(".elements__delete-button");
   }
 
   _getElement() {
@@ -29,6 +32,7 @@ export default class Card {
     this._likeButton.addEventListener("click", () =>
       this._handleLikeClick(this._isLikedByUser(), this._data._id)
     );
+    this._deleteButton.addEventListener("click", this._handleDeleteClick)
   }
 
   _isLikedByUser() {
@@ -55,7 +59,10 @@ export default class Card {
     this._element.querySelector(".elements__place").textContent =
       this._data.name;
 
-    // TODO: set like button state if user have been liked this card
+      if (this._data.owner._id !== this._userId) {
+        this._deleteButton.remove();
+      }
+      
     this.setupLike(this._data);
 
     this._setEventListeners();
