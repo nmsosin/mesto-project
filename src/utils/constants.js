@@ -7,6 +7,8 @@ export const profileAvatarSelector = ".profile__avatar";
 export const placeImageSelector = ".elements__place";
 export const placeNameSelector = ".elements__image";
 
+export const likeButtonSelector = ".elements__like-button";
+
 export const popupEdit = document.querySelector("#popup_edit");
 export const avatarImage = document.querySelector(".profile__avatar");
 export const profileName = document.querySelector(".profile__name");

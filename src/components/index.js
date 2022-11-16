@@ -24,6 +24,29 @@ const userInfo = new UserInfo({
   aboutSelector: constants.profileAboutSelector,
   avatarSelector: constants.profileAvatarSelector,
 });
+
+const createCard = (item) => {
+  const card = new Card(item, "#placeCard", userInfo.userId, {
+    handleLikeClick: (isLikedByUser, cardId) => {
+      if (isLikedByUser) {
+        api
+          .likeRemove(cardId)
+          .then((data) => card.setupLike(data))
+          .catch((err) => console.warn(err));
+      } else {
+        api
+          .likeAdd(cardId)
+          .then((data) => card.setupLike(data))
+          .catch((err) => console.warn(err));
+      }
+    },
+
+    handleCardClick: () => {},
+  });
+  const cardElement = card.generate();
+  return cardElement;
+};
+
 //Get profile && cards server data
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
@@ -32,8 +55,7 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
       {
         items: cards,
         renderer: (item) => {
-          const card = new Card(item, "#placeCard", () => {});
-          const cardElement = card.generate();
+          const cardElement = createCard(item);
           section.addItem(cardElement);
         },
       },
@@ -47,7 +69,7 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
   });
 
 // Popup edit submit
-function handleEditFormSubmit (evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault();
   renderLoading(evt.submitter, true);
   updateProfileData(popupNameInput.value, popupAboutInput.value)
@@ -60,12 +82,12 @@ function handleEditFormSubmit (evt) {
     })
     .finally(() => {
       setTimeout(renderLoading, 1000, evt.submitter, false);
-    })
+    });
 }
 
 const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
 profilePopup.setEventListeners();
-constants.editButton.addEventListener('click', () => {
+constants.editButton.addEventListener("click", () => {
   profilePopup.setInputValues(userInfo.getUserInfo());
   profilePopup.open();
 });
@@ -88,8 +110,6 @@ constants.editButton.addEventListener('click', () => {
 // }
 
 // formAvatarElement.addEventListener('submit', handleAvatarSubmit);
-
-
 
 // // initial cards creation
 // function renderAllCards(result, myId) {
