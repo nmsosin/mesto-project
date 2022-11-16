@@ -1,36 +1,35 @@
-// Variable declarations from index.js
 export let myId;
 
+// Profile info
 export const profileNameSelector = ".profile__name";
 export const profileAboutSelector = ".profile__status";
 export const profileAvatarSelector = ".profile__avatar";
-export const placeImageSelector = ".elements__place";
-export const placeNameSelector = ".elements__image";
 
 export const likeButtonSelector = ".elements__like-button";
 
-export const popupEdit = document.querySelector("#popup_edit");
-export const avatarImage = document.querySelector(".profile__avatar");
-export const profileName = document.querySelector(".profile__name");
-export const profileAbout = document.querySelector(".profile__status");
+// Profile popup
+// export const popupEdit = document.querySelector("#popup_edit");
+// export const avatarImage = document.querySelector(".profile__avatar");
 export const popupNameInput = document.querySelector("#name_input");
 export const popupAboutInput = document.querySelector("#status_input");
-export const formUserElement = document.querySelector(".form__type_user");
-export const formAvatarElement = document.querySelector(".form__type_avatar");
-export const popupAdd = document.querySelector("#popup_add");
-export const formPlaceElement = document.querySelector(".form__type_place");
-export const modals = Array.from(document.querySelectorAll(".popup"));
-export const popupPlaceNameInput = document.querySelector("#place_name_input");
-export const popupImageLinkInput = document.querySelector("#image_link");
-export const editPopup = document.querySelector(".popup_type_edit");
-export const editButton = document.querySelector(".profile__edit-button");
-export const avatarPopup = document.querySelector(".popup_type_change-avatar");
-export const avatarLinkInput = document.querySelector("#avatar_link");
-export const changeAvatarButton = document.querySelector(
-  ".profile__change-avatar"
+// export const formUserElement = document.querySelector(".form__type_user");
+// export const formAvatarElement = document.querySelector(".form__type_avatar");
+// export const popupAdd = document.querySelector("#popup_add");
+// export const formPlaceElement = document.querySelector(".form__type_place");
+// export const modals = Array.from(document.querySelectorAll(".popup"));
+// export const popupPlaceNameInput = document.querySelector("#place_name_input");
+// export const popupImageLinkInput = document.querySelector("#image_link");
+// export const editPopup = document.querySelector(".popup_type_edit");
+/* use */ export const editButton = document.querySelector(
+  ".profile__edit-button"
 );
-export const addPopup = document.querySelector(".popup_type_add");
-export const addButton = document.querySelector(".profile__add-button");
+// export const avatarPopup = document.querySelector(".popup_type_change-avatar");
+// export const avatarLinkInput = document.querySelector("#avatar_link");
+// export const changeAvatarButton = document.querySelector(
+//   ".profile__change-avatar"
+// );
+// export const addPopup = document.querySelector(".popup_type_add");
+// export const addButton = document.querySelector(".profile__add-button");
 
 export const settings = {
   formSelector: ".form",
@@ -50,8 +49,7 @@ export const config = {
   },
 };
 
-//Variable declarations
-const placeCardTemplate = document.querySelector("#placeCard").content;
-const popupFigure = document.querySelector("#popup_type_image-expand");
-const popupImage = popupFigure.querySelector(".popup__image");
-const popupCaption = popupFigure.querySelector(".popup__caption");
+// const placeCardTemplate = document.querySelector("#placeCard").content;
+// const popupFigure = document.querySelector("#popup_type_image-expand");
+// const popupImage = popupFigure.querySelector(".popup__image");
+// const popupCaption = popupFigure.querySelector(".popup__caption");

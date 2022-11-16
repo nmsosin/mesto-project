@@ -8,11 +8,10 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    console.log(this._about.textContent);
     return {
       name: this._name.textContent,
-      about: this._about.textContent
-    }
+      about: this._about.textContent,
+    };
   }
 
   setUserInfo({ name, about, avatar, _id }) {

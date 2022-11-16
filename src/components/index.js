@@ -19,7 +19,6 @@ import UserInfo from "./UserInfo";
 import PopupWithForm from "./PopupWithForm";
 import PopupWithImage from "./PopupWithImage";
 
-
 const api = new Api(constants.config);
 const userInfo = new UserInfo({
   nameSelector: constants.profileNameSelector,
@@ -43,12 +42,15 @@ const createCard = (item) => {
       }
     },
 
-    handleCardClick: (data) => {imageExpandPopup.open(data)},
+    handleCardClick: (data) => {
+      imageExpandPopup.open(data);
+    },
 
     handleDeleteClick: (cardElement, cardId) => {
-      api.deleteCard(cardId)
-      .then(() => cardElement.remove())
-      .catch(err => console.warn(err));
+      api
+        .deleteCard(cardId)
+        .then(() => cardElement.remove())
+        .catch((err) => console.warn(err));
     },
   });
   const cardElement = card.generate();
@@ -79,18 +81,33 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
 // Popup edit submit
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(evt.submitter, true);
-  updateProfileData(popupNameInput.value, popupAboutInput.value)
+  profilePopup.renderLoading(true);
+  api
+    .updateProfileData(
+      constants.popupNameInput.value,
+      constants.popupAboutInput.value
+    )
     .then((result) => {
-      updateProfileAppearance(profileName, profileAbout, result);
-      editPopup.close();
+      userInfo.setUserInfo(result);
+      profilePopup.close();
     })
     .catch((err) => {
       console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
     })
     .finally(() => {
-      setTimeout(renderLoading, 1000, evt.submitter, false);
+      setTimeout(
+        () => profilePopup.renderLoading(false),
+        1000,
+        evt.submitter,
+        false
+      );
     });
+}
+
+function handleAddFormSubmit(evt) {
+  evt.preventDefault();
+  renderLoading(evt.submitter, true);
+  api.postNewCard();
 }
 
 const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
@@ -103,6 +120,7 @@ constants.editButton.addEventListener("click", () => {
 const imageExpandPopup = new PopupWithImage(".popup_type_image-expand");
 imageExpandPopup.setEventListeners();
 
+const newCardPopup = new PopupWithForm("#popup_add", () => {});
 
 //Change avatar submit
 // function handleAvatarSubmit (evt) {
