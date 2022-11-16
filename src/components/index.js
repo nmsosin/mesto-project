@@ -17,6 +17,8 @@ import Card from "./Card";
 import Section from "./Section";
 import UserInfo from "./UserInfo";
 import PopupWithForm from "./PopupWithForm";
+import PopupWithImage from "./PopupWithImage";
+
 
 const api = new Api(constants.config);
 const userInfo = new UserInfo({
@@ -41,7 +43,8 @@ const createCard = (item) => {
       }
     },
 
-    handleCardClick: () => {},
+    handleCardClick: (data) => {imageExpandPopup.open(data)},
+
     handleDeleteClick: (cardElement, cardId) => {
       api.deleteCard(cardId)
       .then(() => cardElement.remove())
@@ -96,6 +99,11 @@ constants.editButton.addEventListener("click", () => {
   profilePopup.setInputValues(userInfo.getUserInfo());
   profilePopup.open();
 });
+
+const imageExpandPopup = new PopupWithImage(".popup_type_image-expand");
+imageExpandPopup.setEventListeners();
+
+
 //Change avatar submit
 // function handleAvatarSubmit (evt) {
 //   evt.preventDefault();
