@@ -105,6 +105,7 @@ function handleEditFormSubmit(evt) {
     });
 }
 
+// Add card submit
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
   newCardPopup.renderLoading(true, "Создание...");
@@ -124,6 +125,22 @@ function handleAddFormSubmit(evt) {
     });
 }
 
+// Change avatar submit
+function handleChangeAvatarSubmit(evt) {
+  evt.preventDefault();
+  avatarPopup.renderLoading(true);
+  api
+  .editAvatar(constants.avatarLinkInput.value)
+  .then(data => {
+    userInfo.setUserInfo(data);
+    avatarPopup.close();
+  })
+  .catch(err => console.warn(err))
+  .finally(() => {
+    setTimeout(() => avatarPopup.renderLoading(false), 1000);
+  })
+}
+
 const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
 profilePopup.setEventListeners();
 constants.editButton.addEventListener("click", () => {
@@ -137,6 +154,13 @@ imageExpandPopup.setEventListeners();
 const newCardPopup = new PopupWithForm("#popup_add", handleAddFormSubmit);
 newCardPopup.setEventListeners();
 constants.addButton.addEventListener("click", () => newCardPopup.open());
+
+
+const avatarPopup = new PopupWithForm('#popup_avatar', handleChangeAvatarSubmit);
+avatarPopup.setEventListeners();
+constants.changeAvatarButton.addEventListener("click", () => avatarPopup.open());
+
+
 
 //Change avatar submit
 // function handleAvatarSubmit (evt) {

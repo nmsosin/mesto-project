@@ -24,10 +24,10 @@ export const popupImageLinkInput = document.querySelector("#image_link");
   ".profile__edit-button"
 );
 // export const avatarPopup = document.querySelector(".popup_type_change-avatar");
-// export const avatarLinkInput = document.querySelector("#avatar_link");
-// export const changeAvatarButton = document.querySelector(
-//   ".profile__change-avatar"
-// );
+export const avatarLinkInput = document.querySelector("#avatar_link");
+export const changeAvatarButton = document.querySelector(
+  ".profile__change-avatar"
+);
 // export const addPopup = document.querySelector(".popup_type_add");
 export const addButton = document.querySelector(".profile__add-button");
 
