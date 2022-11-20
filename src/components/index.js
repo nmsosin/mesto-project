@@ -18,6 +18,7 @@ import Section from "./Section";
 import UserInfo from "./UserInfo";
 import PopupWithForm from "./PopupWithForm";
 import PopupWithImage from "./PopupWithImage";
+import FormValidator from "./FormValidator";
 
 let section;
 const api = new Api(constants.config);
@@ -160,7 +161,14 @@ const avatarPopup = new PopupWithForm('#popup_avatar', handleChangeAvatarSubmit)
 avatarPopup.setEventListeners();
 constants.changeAvatarButton.addEventListener("click", () => avatarPopup.open());
 
+const profileAvatarFormValidator = new FormValidator(constants.settings, constants.formUserElement);
+profileAvatarFormValidator.enableValidation();
 
+const newCardFormValidator = new FormValidator(constants.settings, constants.formPlaceElement);
+newCardFormValidator.enableValidation();
+
+const avatarFormValidator = new FormValidator(constants.settings, constants.formAvatarElement);
+avatarFormValidator.enableValidation();
 
 //Change avatar submit
 // function handleAvatarSubmit (evt) {
