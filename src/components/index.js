@@ -131,21 +131,22 @@ function handleChangeAvatarSubmit(evt) {
   evt.preventDefault();
   avatarPopup.renderLoading(true);
   api
-  .editAvatar(constants.avatarLinkInput.value)
-  .then(data => {
-    userInfo.setUserInfo(data);
-    avatarPopup.close();
-  })
-  .catch(err => console.warn(err))
-  .finally(() => {
-    setTimeout(() => avatarPopup.renderLoading(false), 1000);
-  })
+    .editAvatar(constants.avatarLinkInput.value)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      avatarPopup.close();
+    })
+    .catch((err) => console.warn(err))
+    .finally(() => {
+      setTimeout(() => avatarPopup.renderLoading(false), 1000);
+    });
 }
 
 const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
 profilePopup.setEventListeners();
 constants.editButton.addEventListener("click", () => {
   profilePopup.setInputValues(userInfo.getUserInfo());
+  profileFormValidator.toggleButtonState();
   profilePopup.open();
 });
 
@@ -156,18 +157,31 @@ const newCardPopup = new PopupWithForm("#popup_add", handleAddFormSubmit);
 newCardPopup.setEventListeners();
 constants.addButton.addEventListener("click", () => newCardPopup.open());
 
-
-const avatarPopup = new PopupWithForm('#popup_avatar', handleChangeAvatarSubmit);
+const avatarPopup = new PopupWithForm(
+  "#popup_avatar",
+  handleChangeAvatarSubmit
+);
 avatarPopup.setEventListeners();
-constants.changeAvatarButton.addEventListener("click", () => avatarPopup.open());
+constants.changeAvatarButton.addEventListener("click", () =>
+  avatarPopup.open()
+);
 
-const profileAvatarFormValidator = new FormValidator(constants.settings, constants.formUserElement);
-profileAvatarFormValidator.enableValidation();
+const profileFormValidator = new FormValidator(
+  constants.settings,
+  constants.formUserElement
+);
+profileFormValidator.enableValidation();
 
-const newCardFormValidator = new FormValidator(constants.settings, constants.formPlaceElement);
+const newCardFormValidator = new FormValidator(
+  constants.settings,
+  constants.formPlaceElement
+);
 newCardFormValidator.enableValidation();
 
-const avatarFormValidator = new FormValidator(constants.settings, constants.formAvatarElement);
+const avatarFormValidator = new FormValidator(
+  constants.settings,
+  constants.formAvatarElement
+);
 avatarFormValidator.enableValidation();
 
 //Change avatar submit
