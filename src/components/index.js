@@ -1,14 +1,6 @@
 //Styles import
 import "../pages/index.css";
 
-//Module imports
-// import { enableValidation, toggleButtonState} from "./validate";
-// import {prependCard, updateProfileAppearance, updateAvatar, renderLoading} from "./utils";
-// import {openModal, closeModal, closePopup} from "./modal";
-
-// // import data from server
-// import {getInitialCards, getProfileInfo, updateProfileData, postNewCard, editAvatar} from "./api";
-
 //Import constants from utils
 import * as constants from "../utils/constants";
 
@@ -183,82 +175,3 @@ const avatarFormValidator = new FormValidator(
   constants.formAvatarElement
 );
 avatarFormValidator.enableValidation();
-
-//Change avatar submit
-// function handleAvatarSubmit (evt) {
-//   evt.preventDefault();
-//   renderLoading(evt.submitter, true);
-//   editAvatar(avatarLinkInput.value)
-//     .then((result) => {
-//       closeModal (avatarPopup);
-//       updateAvatar(avatarImage, result);
-//       formAvatarElement.reset();
-//     })
-//     .catch((err) => {
-//       console.log(`Ой! Аватар заменить не удалось: ${err}`);
-//     })
-//     .finally(() => {
-//       setTimeout(renderLoading, 1000, evt.submitter, false);
-//       })
-// }
-
-// formAvatarElement.addEventListener('submit', handleAvatarSubmit);
-
-// // initial cards creation
-// function renderAllCards(result, myId) {
-//   result.slice().reverse().forEach((obj) => prependCard(obj.name, obj.link, obj.likes, obj.owner._id, myId, obj._id));
-// };
-
-// // Add new card submit creation
-// function handleFormPlaceSubmit (evt) {
-//   evt.preventDefault();
-//   renderLoading(evt.submitter, true);
-//   postNewCard(popupPlaceNameInput.value, popupImageLinkInput.value)
-//     .then((result) => {
-//       prependCard (result.name, result.link, result.likes, result.owner._id, myId, result._id);
-//       formPlaceElement.reset();
-
-//       closeModal (popupAdd);
-//     })
-//     .catch((err) => {
-//       console.log(`Ой! Добавить новую карточку не удалось: ${err}`);
-//     })
-//     .finally(() => {
-//       setTimeout(renderLoading, 1000, evt.submitter, false);
-//     })
-// }
-
-// formPlaceElement.addEventListener('submit', handleFormPlaceSubmit);
-
-// // popup open function
-// function openEditPopup (openBtn) {
-//   openBtn.addEventListener('click', () => {
-//     openModal(editPopup);
-//     popupNameInput.value = profileName.textContent;
-//     popupAboutInput.value = profileAbout.textContent;
-//   });
-// };
-
-// openEditPopup(editButton);
-
-// function changeAvatarPopup (openBtn) {
-//   openBtn.addEventListener('click', () => {
-//     openModal(avatarPopup);
-//   });
-// };
-
-// changeAvatarPopup(changeAvatarButton);
-
-// function openAddPopup (openBtn) {
-//   openBtn.addEventListener('click', () => {
-//     openModal(addPopup);
-//   });
-// };
-
-// openAddPopup(addButton);
-
-// // popup close function
-// modals.forEach(closePopup);
-
-// //forms validation
-// enableValidation(settings);

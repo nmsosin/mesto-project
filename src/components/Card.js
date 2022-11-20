@@ -17,7 +17,9 @@ export default class Card {
 
     this._element = this._getElement();
     this._likeButton = this._element.querySelector(likeButtonSelector);
-    this._deleteButton = this._element.querySelector(".elements__delete-button");
+    this._deleteButton = this._element.querySelector(
+      ".elements__delete-button"
+    );
   }
 
   _getElement() {
@@ -28,11 +30,15 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener("click", () => this._handleCardClick(this._data));
+    this._cardImage.addEventListener("click", () =>
+      this._handleCardClick(this._data)
+    );
     this._likeButton.addEventListener("click", () =>
       this._handleLikeClick(this._isLikedByUser(), this._data._id)
     );
-    this._deleteButton.addEventListener("click", () => this._handleDeleteClick(this._element, this._data._id));
+    this._deleteButton.addEventListener("click", () =>
+      this._handleDeleteClick(this._element, this._data._id)
+    );
   }
 
   _isLikedByUser() {
@@ -59,10 +65,10 @@ export default class Card {
     this._element.querySelector(".elements__place").textContent =
       this._data.name;
 
-      if (this._data.owner._id !== this._userId) {
-        this._deleteButton.remove();
-      }
-      
+    if (this._data.owner._id !== this._userId) {
+      this._deleteButton.remove();
+    }
+
     this.setupLike(this._data);
 
     this._setEventListeners();

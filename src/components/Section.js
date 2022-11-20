@@ -11,8 +11,6 @@ export default class Section {
   }
 
   addItem(item) {
-    // TODO: choose one variant
-    //document.querySelector(this._containerSelector).prepend(item);
     this._container.prepend(item);
   }
 }
