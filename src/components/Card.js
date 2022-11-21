@@ -29,6 +29,10 @@ export default class Card {
       .cloneNode(true);
   }
 
+  removeCard() {
+    this._element.remove();
+  }
+
   _setEventListeners() {
     this._cardImage.addEventListener("click", () =>
       this._handleCardClick(this._data)

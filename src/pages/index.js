@@ -20,6 +20,21 @@ const userInfo = new UserInfo({
   avatarSelector: constants.profileAvatarSelector,
 });
 
+
+
+// Popups
+const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
+const imageExpandPopup = new PopupWithImage(".popup_type_image-expand");
+const avatarPopup = new PopupWithForm("#popup_avatar", handleChangeAvatarSubmit);
+const newCardPopup = new PopupWithForm("#popup_add", handleAddFormSubmit);
+
+// Form validators
+const profileFormValidator = new FormValidator(constants.settings, constants.formUserElement);
+const newCardFormValidator = new FormValidator(constants.settings, constants.formPlaceElement);
+const avatarFormValidator = new FormValidator(constants.settings, constants.formAvatarElement);
+
+
+
 const createCard = (item) => {
   const card = new Card(item, "#placeCard", userInfo.userId, {
     handleLikeClick: (isLikedByUser, cardId) => {
@@ -43,13 +58,87 @@ const createCard = (item) => {
     handleDeleteClick: (cardElement, cardId) => {
       api
         .deleteCard(cardId)
-        .then(() => cardElement.remove())
+        .then(() => card.removeCard())
         .catch((err) => console.warn(err));
     },
   });
   const cardElement = card.generate();
   return cardElement;
 };
+
+// Popup edit submit
+function handleEditFormSubmit(evt) {
+  evt.preventDefault();
+  const data = profilePopup._getInputValues();
+  profilePopup.renderLoading(true);
+  api
+    .updateProfileData(data)
+    .then((result) => {
+      userInfo.setUserInfo(result);
+      profilePopup.close();
+    })
+    .catch((err) => {
+      console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
+    })
+    .finally(() => {
+      setTimeout(
+        () => profilePopup.renderLoading(false),
+        1000,
+        evt.submitter,
+        false
+      );
+    });
+}
+
+// Add card submit
+function handleAddFormSubmit(evt) {
+  evt.preventDefault();
+  const data = newCardPopup._getInputValues();
+  newCardPopup.renderLoading(true, "Создание...");
+  api
+    .postNewCard(
+      data
+    )
+    .then((data) => {
+      const cardElement = createCard(data);
+      section.addItem(cardElement);
+      newCardPopup.close();
+    })
+    .catch((err) => console.warn(err))
+    .finally(() => {
+      setTimeout(() => newCardPopup.renderLoading(false), 1000);
+    });
+}
+
+// Change avatar submit
+function handleChangeAvatarSubmit(evt) {
+  evt.preventDefault();
+  const data = avatarPopup._getInputValues();
+  avatarPopup.renderLoading(true);
+  api
+    .editAvatar(data)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      avatarPopup.close();
+    })
+    .catch((err) => console.warn(err))
+    .finally(() => {
+      setTimeout(() => avatarPopup.renderLoading(false), 1000);
+    });
+}
+
+
+
+// Event listeners
+constants.changeAvatarButton.addEventListener("click", () => avatarPopup.open());
+constants.addButton.addEventListener("click", () => newCardPopup.open());
+constants.editButton.addEventListener("click", () => {
+  profilePopup.setInputValues(userInfo.getUserInfo());
+  profileFormValidator.toggleButtonState();
+  profilePopup.open();
+});
+
+
 
 //Get profile && cards server data
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
@@ -72,106 +161,15 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
     console.log(`Запрос данных завершился ошибкой: ${err}`);
   });
 
-// Popup edit submit
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  profilePopup.renderLoading(true);
-  api
-    .updateProfileData(
-      constants.popupNameInput.value,
-      constants.popupAboutInput.value
-    )
-    .then((result) => {
-      userInfo.setUserInfo(result);
-      profilePopup.close();
-    })
-    .catch((err) => {
-      console.log(`Ой! Персональные данные изменить не удалось: ${err}`);
-    })
-    .finally(() => {
-      setTimeout(
-        () => profilePopup.renderLoading(false),
-        1000,
-        evt.submitter,
-        false
-      );
-    });
-}
 
-// Add card submit
-function handleAddFormSubmit(evt) {
-  evt.preventDefault();
-  newCardPopup.renderLoading(true, "Создание...");
-  api
-    .postNewCard(
-      constants.popupPlaceNameInput.value,
-      constants.popupImageLinkInput.value
-    )
-    .then((data) => {
-      const cardElement = createCard(data);
-      section.addItem(cardElement);
-      newCardPopup.close();
-    })
-    .catch((err) => console.warn(err))
-    .finally(() => {
-      setTimeout(() => newCardPopup.renderLoading(false), 1000);
-    });
-}
-
-// Change avatar submit
-function handleChangeAvatarSubmit(evt) {
-  evt.preventDefault();
-  avatarPopup.renderLoading(true);
-  api
-    .editAvatar(constants.avatarLinkInput.value)
-    .then((data) => {
-      userInfo.setUserInfo(data);
-      avatarPopup.close();
-    })
-    .catch((err) => console.warn(err))
-    .finally(() => {
-      setTimeout(() => avatarPopup.renderLoading(false), 1000);
-    });
-}
-
-const profilePopup = new PopupWithForm("#popup_edit", handleEditFormSubmit);
+// Set event listeners for popups
 profilePopup.setEventListeners();
-constants.editButton.addEventListener("click", () => {
-  profilePopup.setInputValues(userInfo.getUserInfo());
-  profileFormValidator.toggleButtonState();
-  profilePopup.open();
-});
-
-const imageExpandPopup = new PopupWithImage(".popup_type_image-expand");
 imageExpandPopup.setEventListeners();
-
-const newCardPopup = new PopupWithForm("#popup_add", handleAddFormSubmit);
 newCardPopup.setEventListeners();
-constants.addButton.addEventListener("click", () => newCardPopup.open());
-
-const avatarPopup = new PopupWithForm(
-  "#popup_avatar",
-  handleChangeAvatarSubmit
-);
 avatarPopup.setEventListeners();
-constants.changeAvatarButton.addEventListener("click", () =>
-  avatarPopup.open()
-);
 
-const profileFormValidator = new FormValidator(
-  constants.settings,
-  constants.formUserElement
-);
+
+// Enable forms validation
 profileFormValidator.enableValidation();
-
-const newCardFormValidator = new FormValidator(
-  constants.settings,
-  constants.formPlaceElement
-);
 newCardFormValidator.enableValidation();
-
-const avatarFormValidator = new FormValidator(
-  constants.settings,
-  constants.formAvatarElement
-);
 avatarFormValidator.enableValidation();

@@ -33,7 +33,7 @@ export default class Api {
   };
 
   //Update profile data
-  updateProfileData(name, about) {
+  updateProfileData({ name, about }) {
     return this._apiRequest(`${this._config.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._config.headers,
@@ -45,24 +45,27 @@ export default class Api {
   }
 
   //Change avatar
-  editAvatar(imgLink) {
+  editAvatar(data) {
+    const avatarLink = data['avatar-link'];
     return this._apiRequest(`${this._config.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._config.headers,
       body: JSON.stringify({
-        avatar: `${imgLink}`,
+        avatar: `${avatarLink}`,
       }),
     });
   }
 
   //Post new cards
-  postNewCard(name, link) {
+  postNewCard(data) {
+    const place = data['place-name'];
+    const image = data['image-link'];
     return this._apiRequest(`${this._config.baseUrl}/cards`, {
       method: "POST",
       headers: this._config.headers,
       body: JSON.stringify({
-        name: `${name}`,
-        link: `${link}`,
+        name: `${place}`,
+        link: `${image}`,
       }),
     });
   }
