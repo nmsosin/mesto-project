@@ -1,16 +1,16 @@
 //Styles import
-import "../pages/index.css";
+import "./index.css";
 
 //Import constants from utils
 import * as constants from "../utils/constants";
 
-import Api from "./Api";
-import Card from "./Card";
-import Section from "./Section";
-import UserInfo from "./UserInfo";
-import PopupWithForm from "./PopupWithForm";
-import PopupWithImage from "./PopupWithImage";
-import FormValidator from "./FormValidator";
+import Api from "../components/Api";
+import Card from "../components/Card";
+import Section from "../components/Section";
+import UserInfo from "../components/UserInfo";
+import PopupWithForm from "../components/PopupWithForm";
+import PopupWithImage from "../components/PopupWithImage";
+import FormValidator from "../components/FormValidator";
 
 let section;
 const api = new Api(constants.config);
